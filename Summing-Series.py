@@ -64,6 +64,9 @@ def gp():
 radio1=Radiobutton(root,text="Arithmetic Progression",command=ap)
 radio2=Radiobutton(root,text="Geometric Progression",command=gp)
 
+#Creating and placing clear button
+Clear=Button(root,text="Clear",width=20).place(x=50,y=350)
+
 #Placing radiobuttons on window
 radio1.place(x=50,y=200)
 radio2.place(x=200,y=200)
