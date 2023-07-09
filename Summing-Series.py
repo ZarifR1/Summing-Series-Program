@@ -1,11 +1,12 @@
-from tkinter import* #importing essential packages for the program 
+#importing essential packages for the program
+from tkinter import*
 import googletrans
 import textblob
 from tkinter import ttk, messagebox 
 
 #creating GUI window
 root=Tk()
-root.title("APs and GPs")
+root.title("Summing Series")
 root.geometry("550x800")
 
 #Creating Labels to inform user
@@ -15,7 +16,7 @@ label3=Label(root,text="Number of terms: ")
 label4=Label(root,text="Series: ")
 label5=Label(root,text="Sum of series: ")
 
-#Creating text box for sequence
+#Creating series and sum of series
 sequence=Text(root,height=15,width=40)
 sequence.place(x=100,y=250)
 
@@ -51,7 +52,7 @@ def ap():
     space=Label(root,text="                                        ").place(x=150,y=500)    #clearing the sum of series
     a=float(entry1.get())                                                                   #a=first term
     d=float(entry2.get())                                                                   #d=increment
-    n=float(entry3.get())                                                                   #n=number of terms
+    n=int(entry3.get())                                                                   #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
     series=[]                                                                               #empty series
     series.append(a+f*d)                                                                    #first term
@@ -69,7 +70,7 @@ def gp():
     space=Label(root,text="                                        ").place(x=150,y=500)    #clearing the sum of series
     a=float(entry1.get())                                                                   #a=first term
     d=float(entry2.get())                                                                   #d=increment
-    n=float(entry3.get())                                                                   #n=number of terms
+    n=int(entry3.get())                                                                   #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
     series=[]                                                                               #empty series
     series.append(a*(d**f))                                                                 #first term
@@ -77,7 +78,10 @@ def gp():
         f=f+1                                                                               #increments through the terms
         series.append(",")                                                                  #separates the terms
         series.append(a*(d**f))                                                             #term inputted in the series
-    sum=(a*((d**n)-1))/(d-1)                                                                #sum of all terms
+    try:
+        sum=(a*((d**n)-1))/(d-1)                                                            #sum of series                                                            
+    except Exception as e:                                                                  #distincts error from calculation
+        messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
     sequence.insert(1.0,series)                                                             #inserting the series
     sum_of_terms=Label(root,text=sum).place(x=150,y=500)                                    #placing the sum of series
     
