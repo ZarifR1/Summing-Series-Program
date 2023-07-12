@@ -9,12 +9,20 @@ root=Tk()
 root.title("Summing Series")
 root.geometry("550x800")
 
+#Translatable labels
+global First_term, Increment, Num_of_terms, Series, Sum_of_series
+First_term="First term: "
+Increment="Increment: "
+Num_of_terms="Number of terms:"
+Series="Series: "
+Sum_of_series="Sum: "
+
 #Creating Labels to inform user
-label1=Label(root,text="First term: ")
-label2=Label(root,text="Increment: ")
-label3=Label(root,text="Number of terms: ")
-label4=Label(root,text="Series: ")
-label5=Label(root,text="Sum of series: ")
+label1=Label(root,text=First_term)
+label2=Label(root,text=Increment)
+label3=Label(root,text=Num_of_terms)
+label4=Label(root,text=Series)
+label5=Label(root,text=Sum_of_series)
 
 #Creating series and sum of series
 sequence=Text(root,height=15,width=40)
@@ -37,6 +45,42 @@ entry1.place(x=200,y=50)
 entry2.place(x=200,y=100)
 entry3.place(x=200,y=150)
 
+#Function to translate languages
+def translate():
+    pass
+
+#Function to open translated langauges
+def open_translate():
+    #Creating window for translator
+    window=Tk()
+    window.title("Translator")
+    window.geometry("250x300")
+
+    #Grabbing languages from googletrans
+    languages=googletrans.LANGUAGES
+    language_list=list(languages.values())
+
+    #Comboxes and Layout of GUI
+    label6=Label(window,text="Original Language:")
+    label6.grid(row=1,column=0,pady=10,padx=50)
+
+    original_combo=ttk.Combobox(window,width=20,value=language_list)
+    original_combo.current(21)
+    original_combo.grid(row=2,column=0,pady=10,padx=50)
+
+    label6=Label(window,text="Translated Language:")
+    label6.grid(row=3,column=0,pady=10,padx=50)
+
+    translated_combo=ttk.Combobox(window,width=20,value=language_list)
+    translated_combo.current(15)
+    translated_combo.grid(row=4,column=0,pady=10,padx=50)
+
+    translate_it=Button(window,text="Translate", command=translate)
+    translate_it.grid(row=5,column=0,pady=10,padx=50)
+
+    window.mainloop()
+
+
 #Function to clear inputs and outputs
 def clear():
     sequence.delete(1.0,END)
@@ -54,14 +98,14 @@ def ap():
     d=float(entry2.get())                                                                   #d=increment
     n=int(entry3.get())                                                                   #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
-    series=[]                                                                               #empty series
-    series.append(a+f*d)                                                                    #first term
+    progression=[]                                                                               #empty series
+    progression.append(a+f*d)                                                                    #first term
     while (f+1) != n:                                                                       #goes through the terms
         f=f+1                                                                               #increments the terms
-        series.append(",")                                                                  #separates the terms
-        series.append(a+f*d)                                                                #term inputted in the series
+        progression.append(",")                                                                  #separates the terms
+        progression.append(a+f*d)                                                                #term inputted in the series
     sum=(n/2)*(2*a+(n-1)*d)                                                                 #sum of all terms
-    sequence.insert(1.0,series)                                                             #inserting the series
+    sequence.insert(1.0,progression)                                                             #inserting the series
     sum_of_terms=Label(root,text=sum).place(x=150,y=500)                                    #placing the sum of series
 
 #Function to calculate the sum and series of an gp 
@@ -72,17 +116,17 @@ def gp():
     d=float(entry2.get())                                                                   #d=increment
     n=int(entry3.get())                                                                   #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
-    series=[]                                                                               #empty series
-    series.append(a*(d**f))                                                                 #first term
+    progression=[]                                                                               #empty series
+    progression.append(a*(d**f))                                                                 #first term
     while (f+1) != n:                                                                       #goes through the terms
         f=f+1                                                                               #increments through the terms
-        series.append(",")                                                                  #separates the terms
-        series.append(a*(d**f))                                                             #term inputted in the series
+        progression.append(",")                                                                  #separates the terms
+        progression.append(a*(d**f))                                                             #term inputted in the series
     try:
         sum=(a*((d**n)-1))/(d-1)                                                            #sum of series                                                            
     except Exception as e:                                                                  #distincts error from calculation
         messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
-    sequence.insert(1.0,series)                                                             #inserting the series
+    sequence.insert(1.0,progression)                                                             #inserting the series
     sum_of_terms=Label(root,text=sum).place(x=150,y=500)                                    #placing the sum of series
     
 #Creating radiobuttons for user to choose between ap and gp
@@ -91,10 +135,17 @@ radio2=Radiobutton(root,text="Geometric Progression",command=gp)
 
 #Creating and placing clear button
 clear=Button(root,text="Clear",command=clear)
-clear.place(x=50,y=200)
+clear.place(x=50,y=350)
 
 #Placing radiobuttons on window
-radio1.place(x=50,y=550)
-radio2.place(x=200,y=550)
+radio1.place(x=50,y=200)
+radio2.place(x=200,y=200)
+
+#Creating menubar for menu options
+menubar=Menu(root)
+root.config(menu=menubar)
+file_menu=Menu(menubar,tearoff=False)
+file_menu.add_command(label="Translate",command=open_translate)
+menubar.add_cascade(label="Options", menu=file_menu)
 
 root.mainloop()
