@@ -68,15 +68,15 @@ def open_translate():
     original_combo.current(21)
     original_combo.grid(row=2,column=0,pady=10,padx=50)
 
-    label6=Label(window,text="Translated Language:")
-    label6.grid(row=3,column=0,pady=10,padx=50)
+    label7=Label(window,text="Translated Language:")
+    label7.grid(row=3,column=0,pady=10,padx=50)
 
     translated_combo=ttk.Combobox(window,width=20,value=language_list)
     translated_combo.current(15)
     translated_combo.grid(row=4,column=0,pady=10,padx=50)
 
-    translate_it=Button(window,text="Translate", command=translate)
-    translate_it.grid(row=5,column=0,pady=10,padx=50)
+    translate_GUI=Button(window,text="Translate", command=translate)
+    translate_GUI.grid(row=5,column=0,pady=10,padx=50)
 
     window.mainloop()
 
