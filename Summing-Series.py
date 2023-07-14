@@ -31,6 +31,11 @@ label5=Label(root,text=Sum_of_series)
 sequence=Text(root,height=15,width=40)
 sequence.place(x=100,y=250)
 
+translated_label=Label(root,text=" ")
+translated_gp=Label(root,text=" ")
+translated_ap=Label(root,text=" ")
+translated_clear=Label(root,text=" ")
+
 #Co ordinates of Labels
 x1=50
 y1=50
@@ -61,6 +66,11 @@ entry3.place(x=200,y=150)
 #Function to translate languages
 def translate():
     #Delete previous GUI labels
+    global translated_ap, translated_gp, translated_clear, translated_label
+    translated_label.destroy()
+    translated_gp.destroy()
+    translated_ap.destroy()
+    translated_clear.destroy()
     label1.destroy()
     label2.destroy()
     label3.destroy()
@@ -72,8 +82,8 @@ def translate():
     Label_names=[First_term,Increment,Num_of_terms,Arithmetic_Progression,Geometric_Progression,Series,Clear,Sum_of_series]
     Label_cords=[x1,x1,x1,x1,x2,x1,x1,x1,y5,y6,y4,x2,x2,y3,y2,y1]
 
-    for i in range(0,int(len(Label_names))):
-        space=Label(root,text="             ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+    '''for i in range(0,int(len(Label_names))):
+        space=Label(root,text="             ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])'''
 
     try:  #Get the languages from Dictionary Keys
           #Get the From Language key
