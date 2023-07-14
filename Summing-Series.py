@@ -73,7 +73,7 @@ def translate():
     Label_cords=[x1,x1,x1,x1,x2,x1,x1,x1,y5,y6,y4,x2,x2,y3,y2,y1]
 
     for i in range(0,int(len(Label_names))):
-        space=Label(root,text="                 ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+        space=Label(root,text="             ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
     try:  #Get the languages from Dictionary Keys
           #Get the From Language key
