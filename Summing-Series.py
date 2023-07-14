@@ -31,12 +31,22 @@ label5=Label(root,text=Sum_of_series)
 sequence=Text(root,height=15,width=40)
 sequence.place(x=100,y=250)
 
+#Co ordinates of Labels
+x1=50
+y1=50
+y2=100
+y3=150
+y4=250
+y5=500
+x2=200
+y6=350
+
 #Placing labels on window
-label1.place(x=50,y=50)
-label2.place(x=50,y=100)
-label3.place(x=50,y=150)
-label4.place(x=50,y=250)
-label5.place(x=50,y=500)
+label1.place(x=x1,y=y1)
+label2.place(x=x1,y=y2)
+label3.place(x=x1,y=y3)
+label4.place(x=x1,y=y4)
+label5.place(x=x1,y=y5)
 
 #Creating entries for user to enter values
 entry1=Entry(root,borderwidth=5)
@@ -50,6 +60,7 @@ entry3.place(x=200,y=150)
 
 #Function to translate languages
 def translate():
+    #Delete previous GUI labels
     label1.destroy()
     label2.destroy()
     label3.destroy()
@@ -58,17 +69,41 @@ def translate():
     clear_button.destroy()
     radio1.destroy()
     radio2.destroy()
+    Label_names=[First_term,Increment,Num_of_terms,Arithmetic_Progression,Geometric_Progression,Series,Clear,Sum_of_series]
+    Label_cords=[x1,x1,x1,x1,x2,x1,x1,x1,y5,y6,y4,x2,x2,y3,y2,y1]
 
-    try:
+    for i in range(0,int(len(Label_names))):
+        space=Label(root,text="                 ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+
+    try:  #Get the languages from Dictionary Keys
+          #Get the From Language key
         for key, value in languages.items():
             if (value == original_combo.get()):
                 from_language_key=key
+
+        #Get the To Language key
         for key,value in languages.items():
             if (value ==translated_combo.get()):
                 to_language_key=key
-        words=First_term
-        words=words.translate(from_lang=from_language_key, to=to_language_key)
-        label8=Label(root,text=words).place(x=50,y=50)
+        
+        #Translating the terms
+        for i in range(0,int(len(Label_names))):
+            translation=textblob.TextBlob(Label_names[i])
+            translation=translation.translate(from_lang=from_language_key, to=to_language_key)
+        
+            #Placing translated text on GUI
+            if Label_names[i] != Arithmetic_Progression or Geometric_Progression or Clear:
+                translated_label=Label(root,text=translation).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+
+            if Label_names[i]==Arithmetic_Progression:
+                translated_ap=Radiobutton(root,text=translation,command=ap).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+
+            if Label_names[i]==Geometric_Progression:
+                translated_gp=Radiobutton(root,text=translation,command=gp).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+            
+            if Label_names[i]==Clear:
+                translated_clear=Button(root,text=translation,command=clear).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+
     except Exception as e:
         messagebox.showerror("Translator",e)
 
@@ -161,11 +196,11 @@ radio2=Radiobutton(root,text=Geometric_Progression,command=gp)
 
 #Creating and placing clear button
 clear_button=Button(root,text=Clear,command=clear)
-clear_button.place(x=50,y=350)
+clear_button.place(x=x1,y=y6)
 
 #Placing radiobuttons on window
-radio1.place(x=50,y=200)
-radio2.place(x=200,y=200)
+radio1.place(x=x1,y=x2)
+radio2.place(x=x2,y=x2)
 
 #Creating menubar for menu options
 menubar=Menu(root)
