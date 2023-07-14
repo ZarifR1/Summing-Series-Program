@@ -10,12 +10,15 @@ root.title("Summing Series")
 root.geometry("550x800")
 
 #Translatable labels
-global First_term, Increment, Num_of_terms, Series, Sum_of_series
+global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
 First_term="First term: "
 Increment="Increment: "
 Num_of_terms="Number of terms:"
 Series="Series: "
 Sum_of_series="Sum: "
+Clear="Clear"
+Arithmetic_Progression="Arithmetic Progression"
+Geometric_Progression="Geometric Progression"
 
 #Creating Labels to inform user
 label1=Label(root,text=First_term)
@@ -47,10 +50,34 @@ entry3.place(x=200,y=150)
 
 #Function to translate languages
 def translate():
-    pass
+    label1.destroy()
+    label2.destroy()
+    label3.destroy()
+    label4.destroy()
+    label5.destroy()
+    clear_button.destroy()
+    radio1.destroy()
+    radio2.destroy()
+
+    try:
+        for key, value in languages.items():
+            if (value == original_combo.get()):
+                from_language_key=key
+        for key,value in languages.items():
+            if (value ==translated_combo.get()):
+                to_language_key=key
+        words=First_term
+        words=words.translate(from_lang=from_language_key, to=to_language_key)
+        label8=Label(root,text=words).place(x=50,y=50)
+    except Exception as e:
+        messagebox.showerror("Translator",e)
+
+
+
 
 #Function to open translated langauges
 def open_translate():
+    global language_list, languages, original_combo, translated_combo
     #Creating window for translator
     window=Tk()
     window.title("Translator")
@@ -60,7 +87,7 @@ def open_translate():
     languages=googletrans.LANGUAGES
     language_list=list(languages.values())
 
-    #Comboxes and Layout of GUI
+    #Comboboxes and Layout of GUI
     label6=Label(window,text="Original Language:")
     label6.grid(row=1,column=0,pady=10,padx=50)
 
@@ -84,8 +111,7 @@ def open_translate():
 #Function to clear inputs and outputs
 def clear():
     sequence.delete(1.0,END)
-    space=Label(root,text="                                        ")
-    space.place(x=150,y=500)
+    space=Label(root,text="                                        ").place(x=150,y=500)
     entry1.delete(0,END)
     entry2.delete(0,END)
     entry3.delete(0,END)
@@ -96,7 +122,7 @@ def ap():
     space=Label(root,text="                                        ").place(x=150,y=500)    #clearing the sum of series
     a=float(entry1.get())                                                                   #a=first term
     d=float(entry2.get())                                                                   #d=increment
-    n=int(entry3.get())                                                                   #n=number of terms
+    n=int(entry3.get())                                                                     #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
     progression=[]                                                                               #empty series
     progression.append(a+f*d)                                                                    #first term
@@ -114,28 +140,28 @@ def gp():
     space=Label(root,text="                                        ").place(x=150,y=500)    #clearing the sum of series
     a=float(entry1.get())                                                                   #a=first term
     d=float(entry2.get())                                                                   #d=increment
-    n=int(entry3.get())                                                                   #n=number of terms
+    n=int(entry3.get())                                                                     #n=number of terms
     f=0                                                                                     #the 'fth' term in the series
-    progression=[]                                                                               #empty series
-    progression.append(a*(d**f))                                                                 #first term
+    progression=[]                                                                          #empty series
+    progression.append(a*(d**f))                                                            #first term
     while (f+1) != n:                                                                       #goes through the terms
         f=f+1                                                                               #increments through the terms
-        progression.append(",")                                                                  #separates the terms
-        progression.append(a*(d**f))                                                             #term inputted in the series
+        progression.append(",")                                                             #separates the terms
+        progression.append(a*(d**f))                                                        #term inputted in the series
     try:
         sum=(a*((d**n)-1))/(d-1)                                                            #sum of series                                                            
     except Exception as e:                                                                  #distincts error from calculation
         messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
-    sequence.insert(1.0,progression)                                                             #inserting the series
+    sequence.insert(1.0,progression)                                                        #inserting the series
     sum_of_terms=Label(root,text=sum).place(x=150,y=500)                                    #placing the sum of series
     
 #Creating radiobuttons for user to choose between ap and gp
-radio1=Radiobutton(root,text="Arithmetic Progression",command=ap)
-radio2=Radiobutton(root,text="Geometric Progression",command=gp)
+radio1=Radiobutton(root,text=Arithmetic_Progression,command=ap)
+radio2=Radiobutton(root,text=Geometric_Progression,command=gp)
 
 #Creating and placing clear button
-clear=Button(root,text="Clear",command=clear)
-clear.place(x=50,y=350)
+clear_button=Button(root,text=Clear,command=clear)
+clear_button.place(x=50,y=350)
 
 #Placing radiobuttons on window
 radio1.place(x=50,y=200)
