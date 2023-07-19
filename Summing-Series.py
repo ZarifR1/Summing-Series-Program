@@ -11,9 +11,11 @@ def summing_series():
     #creating GUI window
     root=Tk()
     root.title("Summing Series")
-    root.geometry("550x800")
-    frame1 = customtkinter.CTkFrame(master=root)
-    frame1.pack(pady=20, padx=60, fill="both", expand=True)                     # adds a frame in the program
+    root.geometry("880x660")
+    root.config(bg="grey19")                                                    # adds background colour to the window
+    frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
+    frame1.pack(pady=30, padx=60, fill="both", expand=True)                     # adds a frame in the program
+    customtkinter.set_appearance_mode(theme)                                    # makes the program in the specified theme
 
     #Translatable labels
     global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
@@ -69,6 +71,7 @@ def summing_series():
         Label_names=[First_term,Increment,Num_of_terms,Arithmetic_Progression,Geometric_Progression,Series,Clear,Sum_of_series]
         Label_cords=[x1,x1,x1,x1,x2,x1,x1,x1,y5,y6,y4,x2,x2,y3,y2,y1]
 
+
         for i in range(0,int(len(Label_names))):
             space=Label(root,text="             ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
@@ -108,7 +111,8 @@ def summing_series():
         
         except Exception as e:
             messagebox.showerror("Translator",e)
-        window.destroy()     #closes the tanslate GUI so user knows it worked
+        window.destroy()                                                         #closes the tanslate GUI so user knows it worked
+       
 
 
 
@@ -122,30 +126,36 @@ def summing_series():
         window.geometry("250x200")                                                                   # restricts the size of the window
         window.maxsize(width=250, height=200)
         window.minsize(width=250, height=200)
-        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color="grey30", corner_radius=8)
-        frame1.place(x =0,y=0)         
-        #creates a padding from the border and within it is a rounded edged frame
+        window.config(bg="grey30")
+        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color="grey30", corner_radius=20)
+        frame1.place(x =0,y=0)                                                                       # creates a padding from the border and within it is a rounded edged frame
+        customtkinter.set_appearance_mode(theme)                                                    # makes the program into the specific theme
 
         #Grabbing languages from googletrans
         languages=googletrans.LANGUAGES
         language_list=list(languages.values())
 
         #Comboboxes and Layout of GUI
-
         original_combo=ttk.Combobox(window,width=20,value=language_list)
         original_combo.current(21)
         label7=customtkinter.CTkLabel(window, text="Translated Language", fg_color="grey35", corner_radius=6, bg_color="grey19" )
-        label7.grid(row=3,column=0,pady=10,padx=50)
+        label7.grid(row=3,column=0,pady=20,padx=50)
 
         translated_combo=ttk.Combobox(window, width=20, values=language_list)
         translated_combo.current(15)
-        translated_combo.grid(row=4,column=0,pady=10,padx=50)
+        translated_combo.grid(row=4,column=0,pady=5,padx=50)
 
         translate_GUI=customtkinter.CTkButton(window,text="Translate", command=translate , bg_color="grey19", corner_radius=15 )
-        translate_GUI.grid(row=5,column=0,pady=10,padx=50)
+        translate_GUI.grid(row=5,column=0,pady=15,padx=50)
 
         window.mainloop()
-
+    
+    #Function to open customised settings
+    def open_customise():
+        Customise_win = Tk()
+        Customise_win.title("Customise Settings")
+        Customise_win.geometry("200x200")
+        pass
 
     #Function to clear inputs and outputs
     def clear():
@@ -211,7 +221,7 @@ def summing_series():
     root.config(menu=menubar)
     file_menu=Menu(menubar,tearoff=False)
     file_menu.add_command(label="Language",command=open_translate)
-    file_menu.add_command(label="Customise")
+    file_menu.add_command(label="Customise", command=open_customise)
     menubar.add_cascade(label="Settings", menu=file_menu)
 
     root.mainloop()
@@ -219,20 +229,23 @@ def summing_series():
 #predefined settings for program
 
 #Co ordinates of Labels
-x1=50
+x1=50+100
 y1=50
 y2=100
 y3=150
 y4=250
 y5=500
-x2=200
+x2=200+100
 y6=350
 
 #coordinates of entry
-x1_1 = 200
+x1_1 = 200+100
 y1 = 50
 
 #other coordinates
-x1_2 = 150
+x1_2 = 150+100
+
+#theme
+theme = "dark"
 
 summing_series()
