@@ -14,7 +14,6 @@ def summing_series():
     root.geometry("550x800")
     frame1 = customtkinter.CTkFrame(master=root)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                     # adds a frame in the program
-    customtkinter.set_appearance_mode("dark")                                 # adjust the colour mode of the customtkinter --> dark, light, system
 
     #Translatable labels
     global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
@@ -28,7 +27,7 @@ def summing_series():
     Geometric_Progression="Geometric Progression"
 
     #Creating Labels to inform user
-    label1=Label(root,text=First_term)
+    label1=customtkinter.CTkLabel(root,text=First_term, )
     label2=Label(root,text=Increment)
     label3=Label(root,text=Num_of_terms)
     label4=Label(root,text=Series)
@@ -57,6 +56,7 @@ def summing_series():
 
     #Function to translate languages
     def translate():
+        translate_GUI.destroy()
         #Delete previous GUI labels
         label1.destroy()
         label2.destroy()
@@ -108,23 +108,23 @@ def summing_series():
         
         except Exception as e:
             messagebox.showerror("Translator",e)
+        window.destroy()     #closes the tanslate GUI so user knows it worked
 
 
 
 
     #Function to open translated langauges
     def open_translate():
-        global language_list, languages, original_combo, translated_combo
+        global language_list, languages, original_combo, translated_combo, window, translate_GUI
         #Creating window for translator
         window=Tk()
         window.title("Translator")
         window.geometry("250x200")                                                                   # restricts the size of the window
         window.maxsize(width=250, height=200)
         window.minsize(width=250, height=200)
-        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color="grey30")
-        frame1.place(x =0,y=0)                                                                        # creates a padding from the border and within it is a rounded edged frame
-        customtkinter.set_appearance_mode("dark")                                                    # adjusts the mode of the appearance --> dark, light, system modes
-        
+        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color="grey30", corner_radius=8)
+        frame1.place(x =0,y=0)         
+        #creates a padding from the border and within it is a rounded edged frame
 
         #Grabbing languages from googletrans
         languages=googletrans.LANGUAGES
@@ -134,14 +134,14 @@ def summing_series():
 
         original_combo=ttk.Combobox(window,width=20,value=language_list)
         original_combo.current(21)
-        label7=customtkinter.CTkLabel(window, text="Translated Language:", fg_color="grey40", corner_radius=6)
+        label7=customtkinter.CTkLabel(window, text="Translated Language", fg_color="grey35", corner_radius=6, bg_color="grey19" )
         label7.grid(row=3,column=0,pady=10,padx=50)
 
-        translated_combo=ttk.Combobox(window,width=20,value=language_list)
+        translated_combo=ttk.Combobox(window, width=20, values=language_list)
         translated_combo.current(15)
         translated_combo.grid(row=4,column=0,pady=10,padx=50)
 
-        translate_GUI=Button(window,text="Translate", command=translate)
+        translate_GUI=customtkinter.CTkButton(window,text="Translate", command=translate , bg_color="grey19", corner_radius=15 )
         translate_GUI.grid(row=5,column=0,pady=10,padx=50)
 
         window.mainloop()
