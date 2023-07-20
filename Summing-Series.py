@@ -28,10 +28,10 @@ def summing_series():
 
     #Creating Labels to inform user
     label1=customtkinter.CTkLabel(root,text=First_term, )
-    label2=Label(root,text=Increment)
-    label3=Label(root,text=Num_of_terms)
-    label4=Label(root,text=Series)
-    label5=Label(root,text=Sum_of_series)
+    label2=customtkinter.CTkLabel(root,text=Increment)
+    label3=customtkinter.CTkLabel(root,text=Num_of_terms)
+    label4=customtkinter.CTkLabel(root,text=Series)
+    label5=customtkinter.CTkLabel(root,text=Sum_of_series)
 
     #Creating series and sum of series
     sequence=Text(root,height=15,width=40)
