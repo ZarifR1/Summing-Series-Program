@@ -12,26 +12,29 @@ def summing_series():
     root=Tk()
     root.title("Summing Series")
     root.geometry("550x800")
-    frame1 = customtkinter.CTkFrame(master=root)
+    root.config(bg=theme_accent)
+    frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                     # adds a frame in the program
+    customtkinter.set_appearance_mode(theme)                                    #sets theme
+
 
     #Translatable labels
     global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
-    First_term="First term: "
-    Increment="Increment: "
-    Num_of_terms="Number of terms:"
-    Series="Series: "
-    Sum_of_series="Sum: "
-    Clear="Clear"
+    First_term="  First term  "
+    Increment="  Increment  "
+    Num_of_terms="  Number of terms  "
+    Series="  Series  "
+    Sum_of_series="  Sum  "
+    Clear="  Clear  "
     Arithmetic_Progression="Arithmetic Progression"
     Geometric_Progression="Geometric Progression"
 
     #Creating Labels to inform user
-    label1=customtkinter.CTkLabel(root,text=First_term, )
-    label2=customtkinter.CTkLabel(root,text=Increment)
-    label3=customtkinter.CTkLabel(root,text=Num_of_terms)
-    label4=customtkinter.CTkLabel(root,text=Series)
-    label5=customtkinter.CTkLabel(root,text=Sum_of_series)
+    label1=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                    #fg_colour = colour of the background of the button
+    label2=customtkinter.CTkLabel(root,text=Increment, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                     #bg_colour = the background colour of the rounded edges
+    label3=customtkinter.CTkLabel(root,text=Num_of_terms, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                  #corner_radius = roundness of the corners
+    label4=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+    label5=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
 
     #Creating series and sum of series
     sequence=Text(root,height=15,width=40)
@@ -140,9 +143,11 @@ def summing_series():
         window.geometry("250x200")                                                                   # restricts the size of the window
         window.maxsize(width=250, height=200)
         window.minsize(width=250, height=200)
-        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color="grey30", corner_radius=8)
-        frame1.place(x =0,y=0)         
-        #creates a padding from the border and within it is a rounded edged frame
+        window.config(bg=theme_accent)
+        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color=theme_accent, corner_radius=15)
+        frame1.place(x =0,y=0)                                                                       #creates a padding from the border and within it is a rounded edged frame
+        customtkinter.set_appearance_mode(theme)                                                    #sets theme
+
 
         #Grabbing languages from googletrans
         languages=googletrans.LANGUAGES
@@ -152,17 +157,42 @@ def summing_series():
 
         original_combo=ttk.Combobox(window,width=20,value=language_list)
         original_combo.current(21)
-        label7=customtkinter.CTkLabel(window, text="Translated Language", fg_color="grey35", corner_radius=6, bg_color="grey19" )
+        label7=customtkinter.CTkLabel(window, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
         label7.grid(row=3,column=0,pady=10,padx=50)
 
         translated_combo=ttk.Combobox(window, width=20, values=language_list)
         translated_combo.current(15)
         translated_combo.grid(row=4,column=0,pady=10,padx=50)
 
-        translate_GUI=customtkinter.CTkButton(window,text="Translate", command=translate , bg_color="grey19", corner_radius=15 )
+        translate_GUI=customtkinter.CTkButton(window,text="Translate", command=translate , bg_color=bg_colour, corner_radius=15 )
         translate_GUI.grid(row=5,column=0,pady=10,padx=50)
 
         window.mainloop()
+
+    #error window
+    def error():
+        reinput=Tk()
+        reinput.title("Error Message")
+        reinput.geometry("350x100")                                                                   # restricts the size of the window
+        reinput.maxsize(width=350, height=100)
+        reinput.minsize(width=350, height=100)
+        Error_message = Label(reinput, text="Error: \n Please check input fields and try again", fg="red", font=30).pack(padx=20, pady=20)
+       
+    #checks if the entry input is valid
+    def validation():
+        global conitnue
+        conitnue = 0                                                                            #"continue" is like a ticket for the program to run
+        a=(entry1.get())
+        if a.isalpha() == True or len(a) == 0:                                                  # checks if the fields are letters or blank
+            conitnue = conitnue + 1                                                             # any misinput denies the ticket
+        d=(entry2.get())
+        if d.isalpha() == True or len(d) == 0:
+            conitnue = conitnue + 1
+        n=(entry3.get())
+        if n.isalpha() == True or len(n) ==0:
+            conitnue = conitnue + 1
+        if conitnue >= 1:
+            error()                                                                             # opens an error window
 
 
     #Function to clear inputs and outputs
@@ -175,6 +205,7 @@ def summing_series():
 
     #Function to calculate the sum and series of an ap
     def ap():
+        validation()                                                                            #sends inputs to validate
         sequence.delete(1.0,END)                                                                #clearing the series
         space=Label(root,text="                                        ").place(x=x1_2,y=y5)    #clearing the sum of series
         a=float(entry1.get())                                                                   #a=first term
@@ -193,6 +224,7 @@ def summing_series():
 
     #Function to calculate the sum and series of an gp 
     def gp():
+        validation()
         sequence.delete(1.0,END)                                                                #clearing the series
         space=Label(root,text="                                        ").place(x=x1_2,y=y5)    #clearing the sum of series
         a=float(entry1.get())                                                                   #a=first term
@@ -234,6 +266,9 @@ def summing_series():
 
     root.mainloop()
 
+
+
+
 #predefined settings for program
 
 #Co ordinates of Labels
@@ -252,5 +287,16 @@ y1 = 50
 
 #other coordinates
 x1_2 = 150
+
+#adds theme
+theme = "light"
+if theme == "dark":
+    theme_accent = "grey19"
+    rbg = "grey19"
+    fg = "grey35"
+if theme == "light":
+    theme_accent = "grey60"
+    bg_colour = "grey86"
+    fg_colour = "grey70"
 
 summing_series()
