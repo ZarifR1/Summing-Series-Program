@@ -211,15 +211,22 @@ def summing_series():
         a=float(entry1.get())                                                                   #a=first term
         d=float(entry2.get())                                                                   #d=increment
         n=int(entry3.get())                                                                     #n=number of terms
-        f=0                                                                                     #the 'fth' term in the series
-        progression=[]                                                                               #empty series
-        progression.append(a+f*d)                                                                    #first term
+        f=0                                                                                     #fth term in the series                
+        decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
+        decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment
+        if decimal1 >= decimal2:                                                                #choosing the larger decimal place
+            decimal=decimal1
+        else:
+            decimal=decimal2
+        progression=[]                                                                          #empty series
+        progression.append(a+f*d)                                                               #first term
         while (f+1) != n:                                                                       #goes through the terms
             f=f+1                                                                               #increments the terms
-            progression.append(",")                                                                  #separates the terms
-            progression.append(a+f*d)                                                                #term inputted in the series
+            progression.append(",")                                                             #separates the terms
+            progression.append(round(a+f*d,decimal))                                                           #term inputted in the series
         sum=(n/2)*(2*a+(n-1)*d)                                                                 #sum of all terms
-        sequence.insert(1.0,progression)                                                             #inserting the series
+        sum=round(sum,decimal)                                                                  #round the sum of terms
+        sequence.insert(1.0,progression)                                                        #inserting the series
         sum_of_terms=Label(root,text=sum).place(x=x1_2,y=y5)                                    #placing the sum of series
 
     #Function to calculate the sum and series of an gp 
@@ -230,15 +237,24 @@ def summing_series():
         a=float(entry1.get())                                                                   #a=first term
         d=float(entry2.get())                                                                   #d=increment
         n=int(entry3.get())                                                                     #n=number of terms
-        f=0                                                                                     #the 'fth' term in the series
+        f=0
+        decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
+        decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment        
+        if decimal1 >= decimal2:                                                                #choosing the larger decimal place
+            decimal=decimal1
+        else:
+            decimal=decimal2                                                                    #the 'fth' term in the series
         progression=[]                                                                          #empty series
         progression.append(a*(d**f))                                                            #first term
+        Increment_decimal=decimal                                                               #Decimal to round off terms                                                      
         while (f+1) != n:                                                                       #goes through the terms
             f=f+1                                                                               #increments through the terms
             progression.append(",")                                                             #separates the terms
-            progression.append(a*(d**f))                                                        #term inputted in the series
+            progression.append(round(a*(d**f),Increment_decimal))                               #term inputted in the series
+            Increment_decimal=Increment_decimal*2                                               #Incrementing decimal
         try:
-            sum=(a*((d**n)-1))/(d-1)                                                            #sum of series                                                            
+            sum=(a*((d**n)-1))/(d-1)                                                            #sum of series
+            sum=round(sum,Increment_decimal)                                                              #round the sum of terms                                                            
         except Exception as e:                                                                  #distincts error from calculation
             messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
         sequence.insert(1.0,progression)                                                        #inserting the series
