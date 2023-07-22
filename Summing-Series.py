@@ -5,8 +5,44 @@ import textblob
 from tkinter import ttk, messagebox 
 import customtkinter
 
+
+    
+
 #making the program into a recallable function for increased stability and performance
 def summing_series():
+    # themes
+    def switch():
+        global theme, current_theme, theme_accent, bg_colour, fg_colour
+        current_theme = root.cget("background")
+        if current_theme == "grey19":
+            theme = "light"
+            theme_accent = "grey60"
+            bg_colour = "grey86"
+            fg_colour = "grey70"
+        else:
+            theme = "dark"
+            theme_accent = "grey19"
+            bg_colour = "grey17"
+            fg_colour = "grey35"
+        root.config(bg=theme_accent)
+        customtkinter.set_appearance_mode(theme)
+        label1.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label2.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label4.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label5.configure(bg_color=bg_colour, fg_color=fg_colour)
+        radio1.configure(bg_color=bg_colour, fg_color=fg_colour)
+        radio2.configure(bg_color=bg_colour, fg_color=fg_colour)
+        clear_button.configure(bg_color=bg_colour)
+        entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
+        entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
+        entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        if ibte == 1:
+            translated_label.configure(bg_color=bg_colour, fg_color=fg_colour)
+            translated_ap.configure(bg_color=bg_colour, fg_color=fg_colour)
+            translated_gp.configure(bg_color=bg_colour, fg_color=fg_colour)
+            translated_clear.configure(bg_color=bg_colour, fg_color=fg_colour)
+            
 
     #creating GUI window
     root=Tk()
@@ -16,7 +52,6 @@ def summing_series():
     frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                     # adds a frame in the program
     customtkinter.set_appearance_mode(theme)                                    #sets theme
-
 
     #Translatable labels
     global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
@@ -29,12 +64,16 @@ def summing_series():
     Arithmetic_Progression="Arithmetic Progression"
     Geometric_Progression="Geometric Progression"
 
+
+    global label1, label2, label3, label4, label5                                                                                   # makes variable accessible from anywhere
+
     #Creating Labels to inform user
     label1=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                    #fg_colour = colour of the background of the button
     label2=customtkinter.CTkLabel(root,text=Increment, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                     #bg_colour = the background colour of the rounded edges
     label3=customtkinter.CTkLabel(root,text=Num_of_terms, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                  #corner_radius = roundness of the corners
     label4=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
     label5=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+    
 
     #Creating series and sum of series
     sequence=Text(root,height=15,width=40)
@@ -48,19 +87,19 @@ def summing_series():
     label5.place(x=x8,y=y8)
 
     #Creating entries for user to enter values
-    entry1=Entry(root,borderwidth=5)
-    entry2=Entry(root,borderwidth=5)
-    entry3=Entry(root,borderwidth=5)
+    entry1=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)
+    entry2=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)
+    entry3=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)
 
     #Placing entries on window
     entry1.place(x=x2,y=y1)
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
 
-    #Function to translate languages
-    def translate():
+
+    def delete():
+        #Delete previous GUI label
         translate_GUI.destroy()
-        #Delete previous GUI labels
         label1.destroy()
         label2.destroy()
         label3.destroy()
@@ -69,11 +108,13 @@ def summing_series():
         clear_button.destroy()
         radio1.destroy()
         radio2.destroy()
+    
+    #Function to translate languages
+    def translate():
+        delete()
+        global translated_ap, translated_clear, translated_gp, translated_label
         Label_names=[First_term,Increment,Num_of_terms,Arithmetic_Progression,Geometric_Progression,Series,Clear,Sum_of_series]
         Label_cords=[x1,x1,x1,x3,x4,x5,x7,x8,y8,y7,y5,y4,y4,y3,y2,y1]
-
-        for i in range(0,int(len(Label_names))):
-            space=Label(root,text="             ").place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
         
         try:  #Get the languages from Dictionary Keys
             #Get the From Language key
@@ -91,16 +132,17 @@ def summing_series():
                 for i in range(0,int(len(Label_names))):
                 #Placing translated text on GUI
                     if Label_names[i] != Arithmetic_Progression or Geometric_Progression or Clear:
-                        translated_label=customtkinter.CTkLabel(root,text=Label_names[i], corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_label=customtkinter.CTkLabel(root,text=Label_names[i], corner_radius=6, bg_color=bg_colour, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
                     if Label_names[i]==Arithmetic_Progression:
-                        translated_ap=customtkinter.CTkRadioButton(root,text=Label_names[i],command=ap).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_ap=customtkinter.CTkRadioButton(root,text=Label_names[i],command=ap,bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
                     if Label_names[i]==Geometric_Progression:
-                        translated_gp=customtkinter.CTkRadioButton(root,text=Label_names[i],command=gp).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_gp=customtkinter.CTkRadioButton(root,text=Label_names[i],command=gp, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
                     
                     if Label_names[i]==Clear:
-                        translated_clear=customtkinter.CTkButton(root,text=Label_names[i],command=clear,width=15).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_clear=customtkinter.CTkButton(root,text=Label_names[i],command=clear,width=15, bg_color=bg_colour, corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                    ibte = 1
 
             if translated_combo.get() != "english": 
             #Translating the terms
@@ -110,16 +152,17 @@ def summing_series():
                 
                     #Placing translated text on GUI
                     if Label_names[i] != Arithmetic_Progression or Geometric_Progression or Clear:
-                        translated_label=customtkinter.CTkLabel(root,text=translation, corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_label=customtkinter.CTkLabel(root,text=translation, bg_color=bg_colour, corner_radius=6, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
                     if Label_names[i]==Arithmetic_Progression:
-                        translated_ap=customtkinter.CTkRadioButton(root,text=translation,command=ap).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_ap=customtkinter.CTkRadioButton(root,text=translation,command=ap, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
 
                     if Label_names[i]==Geometric_Progression:
-                        translated_gp=customtkinter.CTkRadioButton(root,text=translation,command=gp).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_gp=customtkinter.CTkRadioButton(root,text=translation,command=gp, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
                     
                     if Label_names[i]==Clear:
-                        translated_clear=customtkinter.CTkButton(root,text=translation,command=clear,width=15).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                        translated_clear=customtkinter.CTkButton(root,text=translation,command=clear,width=15, bg_color=bg_colour, corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                    ibte = 1
            
             #Changing original language to new translated language
             for j in range(0,int(len(languages.values()))):
@@ -173,10 +216,10 @@ def summing_series():
     def error():
         reinput=Tk()
         reinput.title("Error Message")
-        reinput.geometry("350x100")                                                                   # restricts the size of the window
-        reinput.maxsize(width=350, height=100)
-        reinput.minsize(width=350, height=100)
-        Error_message = Label(reinput, text="Error: \n Please check input fields and try again", fg="red", font=30).pack(padx=20, pady=20)
+        reinput.geometry("400x100")                                                                   # restricts the size of the window
+        reinput.maxsize(width=400, height=100)
+        reinput.minsize(width=400, height=100)
+        Error_message = Label(reinput, text="Please check input fields and try again", fg="red", font=30).pack(padx=20, pady=30)
        
     #checks if the entry input is valid
     def validation():
@@ -198,74 +241,83 @@ def summing_series():
     #Function to clear inputs and outputs
     def clear():
         sequence.delete(1.0,END)
-        space=Label(root,text="                                        ").place(x=x6,y=y8)
+        space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         entry1.delete(0,END)
         entry2.delete(0,END)
         entry3.delete(0,END)
 
     #Function to calculate the sum and series of an ap
     def ap():
+        radio1.deselect()
         validation()                                                                            #sends inputs to validate
-        sequence.delete(1.0,END)                                                                #clearing the series
-        space=Label(root,text="                                        ").place(x=x6,y=y8)    #clearing the sum of series
-        a=float(entry1.get())                                                                   #a=first term
-        d=float(entry2.get())                                                                   #d=increment
-        n=int(entry3.get())                                                                     #n=number of terms
-        f=0                                                                                     #fth term in the series                
-        decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
-        decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment
-        if decimal1 >= decimal2:                                                                #choosing the larger decimal place
-            decimal=decimal1
+        if conitnue == 0:
+            sequence.delete(1.0,END)                                                                #clearing the series
+            space=Label(root,text="                                                          ", bg= bg_colour, fg=fg_colour).place(x=x6,y=y8)    #clearing the sum of series
+            a=float(entry1.get())                                                                   #a=first term
+            d=float(entry2.get())                                                                   #d=increment
+            n=int(entry3.get())                                                                     #n=number of terms
+            f=0                                                                                     #fth term in the series                
+            decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
+            decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment
+            if decimal1 >= decimal2:                                                                #choosing the larger decimal place
+                decimal=decimal1
+            else:
+                decimal=decimal2
+            progression=[]                                                                          #empty series
+            progression.append(a+f*d)                                                               #first term
+            while (f+1) != n:                                                                       #goes through the terms
+                f=f+1                                                                               #increments the terms
+                progression.append(",")                                                             #separates the terms
+                progression.append(round(a+f*d,decimal))                                                           #term inputted in the series
+            sum=(n/2)*(2*a+(n-1)*d)                                                                 #sum of all terms
+            sum=round(sum,decimal)                                                                  #round the sum of terms
+            sequence.insert(1.0,progression)                                                        #inserting the series
+            sum_of_terms=customtkinter.CTkLabel(root,text=sum, bg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
         else:
-            decimal=decimal2
-        progression=[]                                                                          #empty series
-        progression.append(a+f*d)                                                               #first term
-        while (f+1) != n:                                                                       #goes through the terms
-            f=f+1                                                                               #increments the terms
-            progression.append(",")                                                             #separates the terms
-            progression.append(round(a+f*d,decimal))                                                           #term inputted in the series
-        sum=(n/2)*(2*a+(n-1)*d)                                                                 #sum of all terms
-        sum=round(sum,decimal)                                                                  #round the sum of terms
-        sequence.insert(1.0,progression)                                                        #inserting the series
-        sum_of_terms=Label(root,text=sum).place(x=x6,y=y8)                                    #placing the sum of series
+            pass
 
     #Function to calculate the sum and series of an gp 
     def gp():
+        radio2.deselect()
         validation()
-        sequence.delete(1.0,END)                                                                #clearing the series
-        space=Label(root,text="                                        ").place(x=x6,y=y8)    #clearing the sum of series
-        a=float(entry1.get())                                                                   #a=first term
-        d=float(entry2.get())                                                                   #d=increment
-        n=int(entry3.get())                                                                     #n=number of terms
-        f=0
-        decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
-        decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment        
-        if decimal1 >= decimal2:                                                                #choosing the larger decimal place
-            decimal=decimal1
+        if conitnue == 0:
+            sequence.delete(1.0,END)                                                                #clearing the series
+            space=Label(root,text="                                                          ", bg= bg_colour, fg=fg_colour).place(x=x6,y=y8)                  #clearing the sum of series
+            a=float(entry1.get())                                                                   #a=first term
+            d=float(entry2.get())                                                                   #d=increment
+            n=int(entry3.get())                                                                     #n=number of terms
+            f=0
+            decimal1=len(str(a).split(".")[1])                                                      #decimal places of first term
+            decimal2=len(str(d).split(".")[1])                                                      #decimal places of increment        
+            if decimal1 >= decimal2:                                                                #choosing the larger decimal place
+                decimal=decimal1
+            else:
+                decimal=decimal2                                                                    #the 'fth' term in the series
+            progression=[]                                                                          #empty series
+            progression.append(a*(d**f))                                                            #first term
+            Increment_decimal=decimal                                                               #Decimal to round off terms                                                      
+            while (f+1) != n:                                                                       #goes through the terms
+                f=f+1                                                                               #increments through the terms
+                progression.append(",")                                                             #separates the terms
+                progression.append(round(a*(d**f),Increment_decimal))                               #term inputted in the series
+                Increment_decimal=Increment_decimal*2                                               #Incrementing decimal
+            try:
+                sum=(a*((d**n)-1))/(d-1)                                                            #sum of series
+                sum=round(sum,Increment_decimal)                                                              #round the sum of terms                                                            
+            except Exception as e:                                                                  #distincts error from calculation
+                messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
+            sequence.insert(1.0,progression)                                                        #inserting the series
+            sum_of_terms=customtkinter.CTkLabel(root,text=sum, bg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
         else:
-            decimal=decimal2                                                                    #the 'fth' term in the series
-        progression=[]                                                                          #empty series
-        progression.append(a*(d**f))                                                            #first term
-        Increment_decimal=decimal                                                               #Decimal to round off terms                                                      
-        while (f+1) != n:                                                                       #goes through the terms
-            f=f+1                                                                               #increments through the terms
-            progression.append(",")                                                             #separates the terms
-            progression.append(round(a*(d**f),Increment_decimal))                               #term inputted in the series
-            Increment_decimal=Increment_decimal*2                                               #Incrementing decimal
-        try:
-            sum=(a*((d**n)-1))/(d-1)                                                            #sum of series
-            sum=round(sum,Increment_decimal)                                                              #round the sum of terms                                                            
-        except Exception as e:                                                                  #distincts error from calculation
-            messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
-        sequence.insert(1.0,progression)                                                        #inserting the series
-        sum_of_terms=Label(root,text=sum).place(x=x6,y=y8)                                    #placing the sum of series
+            pass
+        
         
     #Creating radiobuttons for user to choose between ap and gp
-    radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap)
-    radio2=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp)
+    radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
+    radio2=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
 
     #Creating and placing clear button
-    clear_button=customtkinter.CTkButton(root,text=Clear,command=clear,width=15)
+    clear_button=customtkinter.CTkButton(root,text=Clear,command=clear,width=15, bg_color=bg_colour, corner_radius=6)
     clear_button.place(x=x7,y=y7)
 
     #Placing radiobuttons on window
@@ -277,7 +329,7 @@ def summing_series():
     root.config(menu=menubar)
     file_menu=Menu(menubar,tearoff=False)
     file_menu.add_command(label="Language",command=open_translate)
-    file_menu.add_command(label="Customise")
+    file_menu.add_command(label="Customise", command=switch)
     menubar.add_cascade(label="Settings", menu=file_menu)
 
     root.mainloop()
@@ -312,14 +364,18 @@ y1 = 50
 x1_2 = 150
 
 #adds theme
-theme = "light"
-if theme == "dark":
-    theme_accent = "grey19"
-    rbg = "grey19"
-    fg = "grey35"
+theme = "dark"
+
 if theme == "light":
     theme_accent = "grey60"
     bg_colour = "grey86"
     fg_colour = "grey70"
+if theme == "dark":
+    theme_accent = "grey19"
+    bg_colour = "grey17"
+    fg_colour = "grey35"
+
+#ibte is required to run the code
+ibte = 0
 
 summing_series()
