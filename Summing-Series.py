@@ -25,11 +25,11 @@ def summing_series():
             bg_colour = "grey17"
             fg_colour = "grey35"
         root.config(bg=theme_accent)
-        customtkinter.set_appearance_mode(theme)
+        customtkinter.set_appearance_mode(theme)                                            # Updating all GUI text
         label1.configure(bg_color=bg_colour, fg_color=fg_colour)
         label2.configure(bg_color=bg_colour, fg_color=fg_colour)
         label3.configure(bg_color=bg_colour, fg_color=fg_colour)
-        label4.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label4.configure(bg_color=bg_colour, fg_color=fg_colour)    
         label5.configure(bg_color=bg_colour, fg_color=fg_colour)
         radio1.configure(bg_color=bg_colour, fg_color=fg_colour)
         radio2.configure(bg_color=bg_colour, fg_color=fg_colour)
@@ -38,10 +38,18 @@ def summing_series():
         entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
         if ibte == 1:
-            translated_label.configure(bg_color=bg_colour, fg_color=fg_colour)
-            translated_ap.configure(bg_color=bg_colour, fg_color=fg_colour)
-            translated_gp.configure(bg_color=bg_colour, fg_color=fg_colour)
-            translated_clear.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label1trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label2trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label3trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label4trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label5trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            radio1trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            radio2trans.configure(bg_color=bg_colour, fg_color=fg_colour)
+            cleartrans.configure(bg_color=bg_colour)
+        if ibte == 2:
+            ap()
+        if ibte == 3:
+            gp()
             
 
     #creating GUI window
@@ -112,7 +120,7 @@ def summing_series():
     #Function to translate languages
     def translate():
         delete()
-        global translated_ap, translated_clear, translated_gp, translated_label
+        global label1trans, label2trans, label3trans,label4trans, label5trans, radio1trans, radio2trans, cleartrans, ibte
         
         try:  #Get the languages from Dictionary Keys
             #Get the From Language key
@@ -267,9 +275,10 @@ def summing_series():
     def ap():
         radio1.deselect()
         validation()                                                                            #sends inputs to validate
+        global sum_of_terms, space, ibte
         if conitnue == 0:
             sequence.delete(1.0,END)                                                                #clearing the series
-            space=Label(root,text="                                                          ", bg= bg_colour, fg=fg_colour).place(x=x6,y=y8)    #clearing the sum of series
+            space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)    #clearing the sum of series
             a=float(entry1.get())                                                                   #a=first term
             d=float(entry2.get())                                                                   #d=increment
             n=int(entry3.get())                                                                     #n=number of terms
@@ -289,7 +298,8 @@ def summing_series():
             sum=(n/2)*(2*a+(n-1)*d)                                                                 #sum of all terms
             sum=round(sum,decimal)                                                                  #round the sum of terms
             sequence.insert(1.0,progression)                                                        #inserting the series
-            sum_of_terms=customtkinter.CTkLabel(root,text=sum, bg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
+            sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
+            ibte = 2
         else:
             pass
 
@@ -297,9 +307,10 @@ def summing_series():
     def gp():
         radio2.deselect()
         validation()
+        global sum_of_terms, space, ibte
         if conitnue == 0:
             sequence.delete(1.0,END)                                                                #clearing the series
-            space=Label(root,text="                                                          ", bg= bg_colour, fg=fg_colour).place(x=x6,y=y8)                  #clearing the sum of series
+            space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)                  #clearing the sum of series
             a=float(entry1.get())                                                                   #a=first term
             d=float(entry2.get())                                                                   #d=increment
             n=int(entry3.get())                                                                     #n=number of terms
@@ -324,7 +335,8 @@ def summing_series():
             except Exception as e:                                                                  #distincts error from calculation
                 messagebox.showerror("Sum of Series",e)                                             #shows error when increment is 1                                                                #sum of all terms
             sequence.insert(1.0,progression)                                                        #inserting the series
-            sum_of_terms=customtkinter.CTkLabel(root,text=sum, bg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
+            sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)                                    #placing the sum of series
+            ibte = 3
         else:
             pass
         
