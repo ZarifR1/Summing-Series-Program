@@ -113,8 +113,6 @@ def summing_series():
     def translate():
         delete()
         global translated_ap, translated_clear, translated_gp, translated_label
-        Label_names=[First_term,Increment,Num_of_terms,Arithmetic_Progression,Geometric_Progression,Series,Clear,Sum_of_series]
-        Label_cords=[x1,x1,x1,x3,x4,x5,x7,x8,y8,y7,y5,y4,y4,y3,y2,y1]
         
         try:  #Get the languages from Dictionary Keys
             #Get the From Language key
@@ -129,40 +127,59 @@ def summing_series():
             
             if translated_combo.get() == "english":
                 
-                for i in range(0,int(len(Label_names))):
-                #Placing translated text on GUI
-                    if Label_names[i] != Arithmetic_Progression or Geometric_Progression or Clear:
-                        translated_label=customtkinter.CTkLabel(root,text=Label_names[i], corner_radius=6, bg_color=bg_colour, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                label1trans=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label1trans.place(x=x1,y=y1)
 
-                    if Label_names[i]==Arithmetic_Progression:
-                        translated_ap=customtkinter.CTkRadioButton(root,text=Label_names[i],command=ap,bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                label2trans=customtkinter.CTkLabel(root,text=Increment, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label2trans.place(x=x1,y=y2)
 
-                    if Label_names[i]==Geometric_Progression:
-                        translated_gp=customtkinter.CTkRadioButton(root,text=Label_names[i],command=gp, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
-                    
-                    if Label_names[i]==Clear:
-                        translated_clear=customtkinter.CTkButton(root,text=Label_names[i],command=clear,width=15, bg_color=bg_colour, corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
-                    ibte = 1
+                label3trans=customtkinter.CTkLabel(root,text=Num_of_terms, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label3trans.place(x=x1,y=y3)
+
+                label4trans=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label4trans.place(x=x5,y=y5)
+
+                label5trans=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label5trans.place(x=x8,y=y8)
+
+                radio1trans=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
+                radio1trans.place(x=x3,y=y4)
+
+                radio2trans=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
+                radio2trans.place(x=x4,y=y4)
+
+                cleartrans=customtkinter.CTkButton(root,text=Clear,command=clear,width=15, bg_color=bg_colour, corner_radius=6)
+                cleartrans.place(x=x7,y=y7)
+
+                ibte=1
 
             if translated_combo.get() != "english": 
-            #Translating the terms
-                for i in range(0,int(len(Label_names))):
-                    translation=textblob.TextBlob(Label_names[i])
-                    translation=translation.translate(from_lang=from_language_key, to=to_language_key)
+            #Translating the terms and placing them on GUI
+                label1trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(First_term).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label1trans.place(x=x1,y=y1)
+
+                label2trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Increment).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label2trans.place(x=x1,y=y2)
+
+                label3trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Num_of_terms).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label3trans.place(x=x1,y=y3)
+
+                label4trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Series).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label4trans.place(x=x5,y=y5)
+
+                label5trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Sum_of_series).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
+                label5trans.place(x=x8,y=y8)
+
+                radio1trans=customtkinter.CTkRadioButton(root,text=textblob.TextBlob(Arithmetic_Progression).translate(from_lang=from_language_key,to=to_language_key),command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
+                radio1trans.place(x=x3,y=y4)
                 
-                    #Placing translated text on GUI
-                    if Label_names[i] != Arithmetic_Progression or Geometric_Progression or Clear:
-                        translated_label=customtkinter.CTkLabel(root,text=translation, bg_color=bg_colour, corner_radius=6, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                radio2trans=customtkinter.CTkRadioButton(root,text=textblob.TextBlob(Geometric_Progression).translate(from_lang=from_language_key,to=to_language_key),command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
+                radio2trans.place(x=x4,y=y4)
 
-                    if Label_names[i]==Arithmetic_Progression:
-                        translated_ap=customtkinter.CTkRadioButton(root,text=translation,command=ap, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
+                cleartrans=customtkinter.CTkButton(root,text=textblob.TextBlob(Clear).translate(from_lang=from_language_key,to=to_language_key),command=clear,width=15, bg_color=bg_colour, corner_radius=6)
+                cleartrans.place(x=x7,y=y7)
 
-                    if Label_names[i]==Geometric_Progression:
-                        translated_gp=customtkinter.CTkRadioButton(root,text=translation,command=gp, bg_color=bg_colour, corner_radius=15, fg_color=fg_colour).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
-                    
-                    if Label_names[i]==Clear:
-                        translated_clear=customtkinter.CTkButton(root,text=translation,command=clear,width=15, bg_color=bg_colour, corner_radius=6).place(x=Label_cords[i],y=Label_cords[(len(Label_cords)-1)-i])
-                    ibte = 1
+                ibte = 1
            
             #Changing original language to new translated language
             for j in range(0,int(len(languages.values()))):
