@@ -26,30 +26,19 @@ def summing_series():
             fg_colour = "grey35"
         root.config(bg=theme_accent)
         customtkinter.set_appearance_mode(theme)                                            # Updating all GUI text
-        label1.configure(bg_color=bg_colour, fg_color=fg_colour)
-        label2.configure(bg_color=bg_colour, fg_color=fg_colour)
-        label3.configure(bg_color=bg_colour, fg_color=fg_colour)
-        label4.configure(bg_color=bg_colour, fg_color=fg_colour)    
-        label5.configure(bg_color=bg_colour, fg_color=fg_colour)
-        radio1.configure(bg_color=bg_colour, fg_color=fg_colour)
-        radio2.configure(bg_color=bg_colour, fg_color=fg_colour)
-        clear_button.configure(bg_color=bg_colour)
-        entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
-        entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
-        entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
-        if ibte == 1:
-            label1trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            label2trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            label3trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            label4trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            label5trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            radio1trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            radio2trans.configure(bg_color=bg_colour, fg_color=fg_colour)
-            cleartrans.configure(bg_color=bg_colour)
-        if ibte == 2:
-            ap()
-        if ibte == 3:
-            gp()
+        if ibte == 0:
+            label1.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label2.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label3.configure(bg_color=bg_colour, fg_color=fg_colour)
+            label4.configure(bg_color=bg_colour, fg_color=fg_colour)    
+            label5.configure(bg_color=bg_colour, fg_color=fg_colour)
+            radio1.configure(bg_color=bg_colour, fg_color=fg_colour)
+            radio2.configure(bg_color=bg_colour, fg_color=fg_colour)
+            clear_button.configure(bg_color=bg_colour)
+            entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
+            entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
+            entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        print(theme,theme_accent, current_theme, bg_colour, fg_colour)
             
 
     #creating GUI window
@@ -61,20 +50,8 @@ def summing_series():
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                     # adds a frame in the program
     customtkinter.set_appearance_mode(theme)                                    #sets theme
 
-    #Translatable labels
-    global First_term, Increment, Num_of_terms, Series, Sum_of_series, Clear, Arithmetic_Progression, Geometric_Progression
-    First_term="  First term  "
-    Increment="  Increment  "
-    Num_of_terms="  Number of terms  "
-    Series="  Series  "
-    Sum_of_series="  Sum  "
-    Clear="  Clear  "
-    Arithmetic_Progression="Arithmetic Progression"
-    Geometric_Progression="Geometric Progression"
-
 
     global label1, label2, label3, label4, label5                                                                                   # makes variable accessible from anywhere
-
     #Creating Labels to inform user
     label1=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                    #fg_colour = colour of the background of the button
     label2=customtkinter.CTkLabel(root,text=Increment, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                     #bg_colour = the background colour of the rounded edges
@@ -117,10 +94,26 @@ def summing_series():
         radio1.destroy()
         radio2.destroy()
     
+    def trans_to_english():
+        First_term="  First term  "
+        Increment="  Increment  "
+        Num_of_terms="  Number of terms  "
+        Series="  Series  "
+        Sum_of_series="  Sum  "
+        Clear="  Clear  "
+        Arithmetic_Progression="Arithmetic Progression"
+        Geometric_Progression="Geometric Progression"
+        label1.configure(text = First_term)
+        label2.configure(text = Increment)
+        label3.configure(text = Num_of_terms)
+        label4.configure(text = Series)    
+        label5.configure(text = Sum_of_series)
+        radio1.configure(text = Arithmetic_Progression)
+        radio2.configure(text = Geometric_Progression)
+        clear_button.configure(text = Clear)
+
     #Function to translate languages
     def translate():
-        delete()
-        global label1trans, label2trans, label3trans,label4trans, label5trans, radio1trans, radio2trans, cleartrans, ibte
         
         try:  #Get the languages from Dictionary Keys
             #Get the From Language key
@@ -135,59 +128,31 @@ def summing_series():
             
             if translated_combo.get() == "english":
                 
-                label1trans=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label1trans.place(x=x1,y=y1)
+                trans_to_english()
+                ibte = 0
 
-                label2trans=customtkinter.CTkLabel(root,text=Increment, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label2trans.place(x=x1,y=y2)
-
-                label3trans=customtkinter.CTkLabel(root,text=Num_of_terms, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label3trans.place(x=x1,y=y3)
-
-                label4trans=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label4trans.place(x=x5,y=y5)
-
-                label5trans=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label5trans.place(x=x8,y=y8)
-
-                radio1trans=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
-                radio1trans.place(x=x3,y=y4)
-
-                radio2trans=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
-                radio2trans.place(x=x4,y=y4)
-
-                cleartrans=customtkinter.CTkButton(root,text=Clear,command=clear,width=15, bg_color=bg_colour, corner_radius=6)
-                cleartrans.place(x=x7,y=y7)
-
-                ibte=1
 
             if translated_combo.get() != "english": 
             #Translating the terms and placing them on GUI
-                label1trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(First_term).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label1trans.place(x=x1,y=y1)
+                First_term=(textblob.TextBlob("  First term  ").translate(from_lang=from_language_key,to=to_language_key))
+                Increment=(textblob.TextBlob("  Increment  ").translate(from_lang=from_language_key,to=to_language_key))
+                Num_of_terms=(textblob.TextBlob("  Number of terms  ").translate(from_lang=from_language_key,to=to_language_key))
+                Series=(textblob.TextBlob("  Series  ").translate(from_lang=from_language_key,to=to_language_key))
+                Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
+                Clear=(textblob.TextBlob("  Clear  ").translate(from_lang=from_language_key,to=to_language_key))
+                Arithmetic_Progression=(textblob.TextBlob("Arithmetic Progression").translate(from_lang=from_language_key,to=to_language_key))
+                Geometric_Progression=(textblob.TextBlob("Geometric Progression").translate(from_lang=from_language_key,to=to_language_key))
 
-                label2trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Increment).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label2trans.place(x=x1,y=y2)
+                label1.configure(text = First_term)
+                label2.configure(text = Increment)
+                label3.configure(text = Num_of_terms)
+                label4.configure(text = Series)    
+                label5.configure(text = Sum_of_series)
+                radio1.configure(text = Arithmetic_Progression)
+                radio2.configure(text = Geometric_Progression)
+                clear_button.configure(text = Clear)
 
-                label3trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Num_of_terms).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label3trans.place(x=x1,y=y3)
-
-                label4trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Series).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label4trans.place(x=x5,y=y5)
-
-                label5trans=customtkinter.CTkLabel(root,text=textblob.TextBlob(Sum_of_series).translate(from_lang=from_language_key,to=to_language_key), fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
-                label5trans.place(x=x8,y=y8)
-
-                radio1trans=customtkinter.CTkRadioButton(root,text=textblob.TextBlob(Arithmetic_Progression).translate(from_lang=from_language_key,to=to_language_key),command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
-                radio1trans.place(x=x3,y=y4)
-                
-                radio2trans=customtkinter.CTkRadioButton(root,text=textblob.TextBlob(Geometric_Progression).translate(from_lang=from_language_key,to=to_language_key),command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)
-                radio2trans.place(x=x4,y=y4)
-
-                cleartrans=customtkinter.CTkButton(root,text=textblob.TextBlob(Clear).translate(from_lang=from_language_key,to=to_language_key),command=clear,width=15, bg_color=bg_colour, corner_radius=6)
-                cleartrans.place(x=x7,y=y7)
-
-                ibte = 1
+                ibte = 0
            
             #Changing original language to new translated language
             for j in range(0,int(len(languages.values()))):
@@ -273,7 +238,6 @@ def summing_series():
 
     #Function to calculate the sum and series of an ap
     def ap():
-        radio1.deselect()
         validation()                                                                            #sends inputs to validate
         global sum_of_terms, space, ibte
         if conitnue == 0:
@@ -305,7 +269,6 @@ def summing_series():
 
     #Function to calculate the sum and series of an gp 
     def gp():
-        radio2.deselect()
         validation()
         global sum_of_terms, space, ibte
         if conitnue == 0:
@@ -367,6 +330,16 @@ def summing_series():
 
 
 #predefined settings for program
+
+#Translatable labels
+First_term="  First term  "
+Increment="  Increment  "
+Num_of_terms="  Number of terms  "
+Series="  Series  "
+Sum_of_series="  Sum  "
+Clear="  Clear  "
+Arithmetic_Progression="Arithmetic Progression"
+Geometric_Progression="Geometric Progression"
 
 #Co ordinates of Labels
 x1=100
