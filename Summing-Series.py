@@ -33,6 +33,10 @@ def summing_series():                                                           
         entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        if ibte == 2:
+            ap()
+        if ibte == 3:
+            gp()
             
 
     root=Tk()                                                                               #   creating GUI window
