@@ -33,6 +33,8 @@ def summing_series():                                                           
         entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
+        
         if ibte == 2:
             ap()
         if ibte == 3:
@@ -55,7 +57,7 @@ def summing_series():                                                           
     label4=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)                 #   corner_radius = roundness of the corners
     label5=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6)
     
-    sequence=Text(root,height=15,width=40)                                                  #   Creating series and sum of series
+    sequence=customtkinter.CTkTextbox(root, width=330, height=250, corner_radius=15, fg_color=fg_colour, bg_color=bg_colour)                                                  #   Creating series and sum of series
     sequence.place(x=x6,y=y5)
 
     label1.place(x=x1,y=y1)                                                                 #   Placing labels on window
@@ -169,13 +171,13 @@ def summing_series():                                                           
         global conitnue
         conitnue = 0                                                                        #   "continue" is like a ticket for the program to run
         a=(entry1.get())
-        if a.isnumeric() == False or len(a) == 0:                                              #   checks if the fields are letters or blank
+        if a.isnumeric() == False or "." not in a == True or len(a) == 0:                                              #   checks if the fields are letters or blank
             conitnue = conitnue + 1                                                         #   Any misinput denies the ticket
         d=(entry2.get())
-        if d.isnumeric() == False or len(d) == 0:
+        if d.isnumeric() == False or "." not in d == True or len(d) == 0:
             conitnue = conitnue + 1
         n=(entry3.get())
-        if n.isnumeric() == False or len(n) ==0:
+        if n.isnumeric() == False or "." not in n == True or len(n) ==0:
             conitnue = conitnue + 1
         if conitnue >= 1:
             error()                                                                         #   Opens an error window if ticket's denied
