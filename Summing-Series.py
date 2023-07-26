@@ -169,13 +169,13 @@ def summing_series():                                                           
         global conitnue
         conitnue = 0                                                                        #   "continue" is like a ticket for the program to run
         a=(entry1.get())
-        if a.isalpha() == True or len(a) == 0:                                              #   checks if the fields are letters or blank
+        if a.isnumeric() == False or len(a) == 0:                                              #   checks if the fields are letters or blank
             conitnue = conitnue + 1                                                         #   Any misinput denies the ticket
         d=(entry2.get())
-        if d.isalpha() == True or len(d) == 0:
+        if d.isnumeric() == False or len(d) == 0:
             conitnue = conitnue + 1
         n=(entry3.get())
-        if n.isalpha() == True or len(n) ==0:
+        if n.isnumeric() == False or len(n) ==0:
             conitnue = conitnue + 1
         if conitnue >= 1:
             error()                                                                         #   Opens an error window if ticket's denied
