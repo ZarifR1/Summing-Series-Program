@@ -7,18 +7,20 @@ import customtkinter
 def summing_series():                                                                       #   Making the program into a recallable function for increased stability and performance
 
     def switch():                                                                           #   Switches themes
-        global theme, current_theme, theme_accent, bg_colour, fg_colour                     #   Allows these variables to be used anywhere
+        global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour                     #   Allows these variables to be used anywhere
         current_theme = root.cget("background")                                             #   Recieves the colour of the background
         if current_theme == "grey19":                                                       #   Checks which theme the progam is running
             theme = "light"                                                                 #   Switches to the theme it isn't running
             theme_accent = "grey60"                                                         #   The colour palette of the different themes
             bg_colour = "grey86"                                                            #   Number next to colour is the darkness, lower is darker
             fg_colour = "grey70"
+            text_colour = "black"
         else:
             theme = "dark"
             theme_accent = "grey19"
             bg_colour = "grey17"
             fg_colour = "grey35"
+            text_colour = "white"
 
         root.config(bg=theme_accent)
         customtkinter.set_appearance_mode(theme)                                            #    Updating all GUI text, this includes the colour scheme
@@ -34,6 +36,7 @@ def summing_series():                                                           
         entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
         sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
+        space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         
         if ibte == 2:
             ap()
@@ -157,34 +160,23 @@ def summing_series():                                                           
 
         window.mainloop()
 
-    
-    def error():                                                                            #   Error window
-        reinput=Tk()
-        reinput.title("Error Message")
-        reinput.geometry("400x100")                                                         #   Restricts the size of the window
-        reinput.maxsize(width=400, height=100)
-        reinput.minsize(width=400, height=100)
-        Error_message = Label(reinput, text="Please check input fields and try again", fg="red", font=30).pack(padx=20, pady=30)
-       
-    
     def validation():                                                                       #   Checks if the entry input is valid
-        global conitnue
-        conitnue = 0                                                                        #   "continue" is like a ticket for the program to run
-        a=(entry1.get())
-        if a.isnumeric() == False or "." not in a == True or len(a) == 0:                                              #   checks if the fields are letters or blank
-            conitnue = conitnue + 1                                                         #   Any misinput denies the ticket
-        d=(entry2.get())
-        if d.isnumeric() == False or "." not in d == True or len(d) == 0:
-            conitnue = conitnue + 1
-        n=(entry3.get())
-        if n.isnumeric() == False or "." not in n == True or len(n) ==0:
-            conitnue = conitnue + 1
-        if conitnue >= 1:
-            error()                                                                         #   Opens an error window if ticket's denied
+        global conitnue, a, n, d
+        sequence.configure(state="normal")
+        sequence.delete(1.0, END)
+        try:
+            a, d, n = float(entry1.get()), float(entry2.get()), float(entry3.get())
+            conitnue = 0
+        except ValueError:
+            conitnue = 1
+            sequence.insert(1.0, text="Please check entries and try again")
+            sequence.configure(text_color= "red", state="disabled", font=("REM",18))
 
 
     def clear():                                                                            #   Function to clear inputs and outputs
+        sequence.configure(state="normal")
         sequence.delete(1.0,END)
+        sequence.configure(state="disabled")
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         entry1.delete(0,END)                                                                
         entry2.delete(0,END)
@@ -192,15 +184,17 @@ def summing_series():                                                           
 
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
-        validation()                                                                                #   Sends inputs to validate
         global sum_of_terms, space, ibte
+        sequence.configure(state="normal", text_color="white" , font=("ariel",12))
+        sequence.delete(1.0,END)                                                                #   Clearing the series
+        space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#  Clearing the sum of series
+        validation()
+        print(conitnue)
         if conitnue == 0:
-            sequence.delete(1.0,END)                                                                #   Clearing the series
-            space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#  Clearing the sum of series
+            f=0                                                                                     #   "f"th term in the series 
             a=float(entry1.get())                                                                   #   "a"=first term
             d=float(entry2.get())                                                                   #   "d"=increment
-            n=int(entry3.get())                                                                     #   "n"=number of terms
-            f=0                                                                                     #   "f"th term in the series                
+            n=round(float(entry3.get())+0.1,0)                                                                    #   "n"=number of terms               
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
@@ -216,6 +210,7 @@ def summing_series():                                                           
             sum=(n/2)*(2*a+(n-1)*d)                                                                 #   Sum of all terms
             sum=round(sum,decimal)                                                                  #   Round the sum of terms
             sequence.insert(1.0,progression)                                                        #   Inserting the series
+            sequence.configure(state="disabled")
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
             ibte = 2                                                                                #   Placeholder term --> used like memory 
         else:                                                                                       #   used to make sure changing theme works
@@ -223,15 +218,17 @@ def summing_series():                                                           
 
      
     def gp():                                                                                       #   Function to calculate the sum and series of an gp
-        validation()
         global sum_of_terms, space, ibte
+        sequence.configure(state="normal", text_color="white" , font=("ariel",12))
+        sequence.delete(1.0,END)                                                                #   Clearing the series
+        space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#   Clearing the sum of series
+        validation()
+        print(conitnue)
         if conitnue == 0:
-            sequence.delete(1.0,END)                                                                #   Clearing the series
-            space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#   Clearing the sum of series
+            f=0
             a=float(entry1.get())                                                                   #   "a"=first term
             d=float(entry2.get())                                                                   #   "d"=increment
-            n=int(entry3.get())                                                                     #   "n"=number of terms
-            f=0
+            n=round(float(entry3.get())+0.1,0)                                                                     #   "n"=number of terms
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment        
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
@@ -253,6 +250,7 @@ def summing_series():                                                           
                 messagebox.showerror("Sum of Series",e)                                             #   Shows error when increment is 1     #   Sum of all terms
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
+            sequence.configure(state="disabled")
             ibte = 3                                                                                #   Placeholder term --> used like memory
         else:
             pass
