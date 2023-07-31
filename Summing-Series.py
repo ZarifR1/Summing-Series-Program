@@ -116,7 +116,12 @@ def summing_series():
                 radio2.configure(text = "Geometric Progression")
                 clear_button.configure(text = "  Clear ")
                 root.title("Summing Series")
-                sequence.insert(1.0,"Please check entries and try again")
+
+                translate_GUI.configure(text="Translate text")
+                switch_button.configure(text= "Switch theme")
+                label7.configure(text="Translated Language")
+                
+                
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
 
@@ -130,7 +135,10 @@ def summing_series():
                 Geometric_Progression=(textblob.TextBlob("Geometric Progression").translate(from_lang=from_language_key,to=to_language_key))
                 GUI_Title=(textblob.TextBlob("Summing Series").translate(from_lang=from_language_key, to=to_language_key))
                 Error_msg=(textblob.TextBlob("Please check entries and try again").translate(from_lang=from_language_key, to=to_language_key))
-
+                Translate_text=(textblob.TextBlob("Translate").translate(from_lang=from_language_key, to=to_language_key))
+                Switch_text=(textblob.TextBlob("Switch").translate(from_lang=from_language_key, to=to_language_key))
+                Translated_Language=(textblob.TextBlob("Translated Language").translate(from_lang=from_language_key, to=to_language_key))
+                
                 label1.configure(text = First_term)                                                                                                 #   Changes the text on labels
                 label2.configure(text = Increment)                                                                                                  #   radiobuttons and buttons
                 label3.configure(text = Num_of_terms)
@@ -140,7 +148,13 @@ def summing_series():
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
                 root.title(GUI_Title)
-                sequence.insert(1.0, text=Error_msg)
+
+                translate_GUI.configure(text=Translate_text)
+                switch_button.configure(text= Switch_text)
+                label7.configure(text=Translated_Language)
+
+                
+                
             
             for j in range(0,int(len(languages.values()))):                                 #   Changing original language to new translated language
                 if language_list[j]==translated_combo.get():
