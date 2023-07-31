@@ -32,7 +32,7 @@ def summing_series():
             fg_colour = "grey35"
             text_colour = "white"
 
-
+        Blank.configure(fg_color=theme_accent)
         root.config(bg=theme_accent)
         customtkinter.set_appearance_mode(theme)                                            #    Updating all GUI text, this includes the colour scheme
         label1.configure(bg_color=bg_colour, fg_color=fg_colour)
@@ -48,16 +48,21 @@ def summing_series():
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
         sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
+    
         
         if ibte == 2:
             ap()
         if ibte == 3:
             gp()
+        else:
+            ibte=0                                                                          #   Unsure why this fixes the code
+    
             
 
     root=Tk()                                                                               #   creating GUI window
     root.title("Summing Series")
-    root.geometry("550x700")                                                                #   Assigns the resolution of this window
+    root.geometry("550x700") 
+    root.maxsize(width=550, height=800)                                                               #   Assigns the resolution of this window
     root.config(bg=theme_accent)                                                            #   Sets the background colour
     frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                                 #   Adds a frame to the program
@@ -73,6 +78,7 @@ def summing_series():
     
     sequence=customtkinter.CTkTextbox(root, width=330, height=250, corner_radius=15, fg_color=fg_colour, bg_color=bg_colour)                                                  #   Creating series and sum of series
     sequence.place(x=x6,y=y5)
+    sequence.configure(state="disabled")
 
     label1.place(x=x1,y=y1)                                                                 #   Placing labels on window
     label2.place(x=x1,y=y2)
@@ -109,6 +115,8 @@ def summing_series():
                 radio1.configure(text = "Arithmetic Progression")   
                 radio2.configure(text = "Geometric Progression")
                 clear_button.configure(text = "  Clear ")
+                root.title("Summing Series")
+                sequence.insert(1.0,"Please check entries and try again")
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
 
@@ -120,6 +128,8 @@ def summing_series():
                 Clear=(textblob.TextBlob("  Clear  ").translate(from_lang=from_language_key,to=to_language_key))
                 Arithmetic_Progression=(textblob.TextBlob("Arithmetic Progression").translate(from_lang=from_language_key,to=to_language_key))
                 Geometric_Progression=(textblob.TextBlob("Geometric Progression").translate(from_lang=from_language_key,to=to_language_key))
+                GUI_Title=(textblob.TextBlob("Summing Series").translate(from_lang=from_language_key, to=to_language_key))
+                Error_msg=(textblob.TextBlob("Please check entries and try again").translate(from_lang=from_language_key, to=to_language_key))
 
                 label1.configure(text = First_term)                                                                                                 #   Changes the text on labels
                 label2.configure(text = Increment)                                                                                                  #   radiobuttons and buttons
@@ -129,6 +139,8 @@ def summing_series():
                 radio1.configure(text = Arithmetic_Progression)
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
+                root.title(GUI_Title)
+                sequence.insert(1.0, text=Error_msg)
             
             for j in range(0,int(len(languages.values()))):                                 #   Changing original language to new translated language
                 if language_list[j]==translated_combo.get():
@@ -136,56 +148,25 @@ def summing_series():
             
         except Exception as e:
             messagebox.showerror("Translator",e)
-        window.destroy()                                                                    #   Closes the tanslator GUI so user knows it worked
-
     
-    def open_translate():                                                                   #   Function to open translated langauges
-        global language_list, languages, original_combo, translated_combo, window, translate_GUI
-        
-        window=Tk()                                                                         #   Creating window for translator
-        window.title("Translator")
-        window.geometry("250x200")                                                          #   Restricts the size of the window
-        window.maxsize(width=250, height=200)
-        window.minsize(width=250, height=200)
-        window.config(bg=theme_accent)
-        frame1 = customtkinter.CTkFrame(master=window, width=250, height=200, border_width=5, border_color=theme_accent, corner_radius=15)
-        frame1.place(x =0,y=0)                                                              #   Creates a padding from the border and within it is a rounded edged frame
-        customtkinter.set_appearance_mode(theme)                                            #   sets theme
-
-
-        languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
-        language_list=list(languages.values())
-
-
-        original_combo=ttk.Combobox(window,width=20,value=language_list)                    #   Comboboxes and Layout of GUI and placements
-        original_combo.current(21)
-        label7=customtkinter.CTkLabel(window, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
-        label7.grid(row=3,column=0,pady=10,padx=50)
-
-        translated_combo=ttk.Combobox(window, width=20, values=language_list)               #   Options and placements
-        translated_combo.current(15)
-        translated_combo.grid(row=4,column=0,pady=10,padx=50)
-
-        translate_GUI=customtkinter.CTkButton(window,text="Translate", command=translate , bg_color=bg_colour, corner_radius=15 )
-        translate_GUI.grid(row=5,column=0,pady=10,padx=50)
-
-        window.mainloop()
+    
 
     def validation():                                                                       #   Checks if the entry input is valid
         global conitnue, a, n, d
         sequence.configure(state="normal")
         sequence.delete(1.0, END)
         try:
-            a, d, n = float(entry1.get()), float(entry2.get()), float(entry3.get())
-            conitnue = 0
+            a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
+            if n < 0:
+                sequence.insert(1.0, text="Please check entries and try again")
+                sequence.configure(text_color= "red", state="disabled", font=("REM",18))
+                conitnue=1
+            else:
+                conitnue = 0
         except ValueError:
             conitnue = 1
             sequence.insert(1.0, text="Please check entries and try again")
             sequence.configure(text_color= "red", state="disabled", font=("REM",18))
-
-
-
-
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
         global sum_of_terms, space, ibte
@@ -193,12 +174,11 @@ def summing_series():
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#  Clearing the sum of series
         validation()
-        print(conitnue)
         if conitnue == 0:
             f=0                                                                                     #   "f"th term in the series 
             a=float(entry1.get())                                                                   #   "a"=first term
             d=float(entry2.get())                                                                   #   "d"=increment
-            n=round(float(entry3.get())+0.1,0)                                                                    #   "n"=number of terms               
+            n=int(entry3.get())                                                                    #   "n"=number of terms               
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
@@ -219,6 +199,7 @@ def summing_series():
             ibte = 2                                                                                #   Placeholder term --> used like memory 
         else:                                                                                       #   used to make sure changing theme works
             ibte=0                                                                                    #   while calculations are happening and keeps answers
+        radio2.deselect()
 
      
     def gp():                                                                                       #   Function to calculate the sum and series of an gp
@@ -232,7 +213,7 @@ def summing_series():
             f=0
             a=float(entry1.get())                                                                   #   "a"=first term
             d=float(entry2.get())                                                                   #   "d"=increment
-            n=round(float(entry3.get())+0.1,0)                                                                     #   "n"=number of terms
+            n=int(entry3.get())                                                                     #   "n"=number of terms
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment        
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
@@ -258,20 +239,30 @@ def summing_series():
             ibte = 3                                                                                #   Placeholder term --> used like memory
         else:
             pass
-        
-    switch_button=customtkinter.CTkSwitch(root,text="Switch Theme", command=switch)
-    switch_button.pack()
+        radio1.deselect()
 
+    Blank=customtkinter.CTkLabel(root,text="                               ",fg_color=theme_accent)
+    Blank.pack(pady=40)
+    
     label7=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
-    label7.place(x=60,y=600)
+    label7.place(x=60,y=617)
 
     languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
     language_list=list(languages.values())
 
-    translated_combo=customtkinter.CTkComboBox(root, width=20, values=language_list)               #   Options and placements
-    translated_combo.place(x=150,y=600)
+    original_combo=ttk.Combobox(root,width=20,value=language_list)                    #   Comboboxes and Layout of GUI and placements
+    original_combo.current(21)
+    
+    translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list)               #   Options and placements
+    translated_combo.place(x=340,y=617)
 
-    radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)#   Creating radiobuttons for user to 
+    translate_GUI=customtkinter.CTkButton(root,text="Translate", command=translate , bg_color=bg_colour, corner_radius=15 )
+    translate_GUI.place(x=60,y=664)
+
+    switch_button=customtkinter.CTkSwitch(root,text="Switch Theme", command=switch)
+    switch_button.place(x=340,y=664)
+
+    radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15,value=1)#   Creating radiobuttons for user to 
     radio2=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)#    choose between ap and gp
 
     clear_button=customtkinter.CTkButton(root,text=Clear,command=clear,width=15, bg_color=bg_colour, corner_radius=6)#   Creating and placing clear button
@@ -280,14 +271,8 @@ def summing_series():
     radio1.place(x=x3,y=y4)                                                                         #   Placing radiobuttons on window
     radio2.place(x=x4,y=y4)
 
-    menubar=Menu(root)                                                                              #   Creating menubar for menu options
-    root.config(menu=menubar)
-    file_menu=Menu(menubar,tearoff=False)
-    file_menu.add_command(label="Language",command=open_translate)
-    menubar.add_cascade(label="Settings", menu=file_menu)
-
     root.mainloop()
-#                                                                                                       Predefined settings for program
+                                                                                                    #   Predefined settings for program
 First_term="  First term  "                                                                         #   Predefined language
 Increment="  Increment  "
 Num_of_terms="  Number of terms  "
@@ -312,7 +297,7 @@ x6=140
 x7=75
 y7=350
 x8=80
-y8=500
+y8=530
 
 
 theme = "dark"                                                                                      #   Predefined theme out of the standard 
