@@ -95,8 +95,25 @@ def summing_series():
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
 
-    
-    def translate():                                                                        #   Function to translate languages
+    def validation():                                                                       #   Checks if the entry input is valid
+        global conitnue, a, n, d
+        sequence.configure(state="normal")
+        sequence.delete(1.0, END)
+        try:
+            a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
+            if n < 0:
+                sequence.insert(1.0, text="Please check entries and try again")
+                sequence.configure(text_color= "red", state="disabled", font=("REM",18))
+                conitnue=1
+            else:
+                conitnue = 0
+        except ValueError:
+            conitnue = 1
+            sequence.insert(1.0, text="Please check entries and try again")
+            sequence.configure(text_color= "red", state="disabled", font=("REM",18))
+
+    def translate():
+        global Error_msg                                                                        #   Function to translate languages
         try:                                                                                #   Get the languages from Dictionary Keys
             for key, value in languages.items():                                            #   Get the From Language key
                 if (value == original_combo.get()):
@@ -116,7 +133,7 @@ def summing_series():
                 radio2.configure(text = "Geometric Progression")
                 clear_button.configure(text = "  Clear ")
                 root.title("Summing Series")
-
+                
                 translate_GUI.configure(text="Translate text")
                 switch_button.configure(text= "Switch theme")
                 label7.configure(text="Translated Language")
@@ -148,7 +165,7 @@ def summing_series():
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
                 root.title(GUI_Title)
-
+                
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
                 label7.configure(text=Translated_Language)
@@ -163,24 +180,6 @@ def summing_series():
         except Exception as e:
             messagebox.showerror("Translator",e)
     
-    
-
-    def validation():                                                                       #   Checks if the entry input is valid
-        global conitnue, a, n, d
-        sequence.configure(state="normal")
-        sequence.delete(1.0, END)
-        try:
-            a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
-            if n < 0:
-                sequence.insert(1.0, text="Please check entries and try again")
-                sequence.configure(text_color= "red", state="disabled", font=("REM",18))
-                conitnue=1
-            else:
-                conitnue = 0
-        except ValueError:
-            conitnue = 1
-            sequence.insert(1.0, text="Please check entries and try again")
-            sequence.configure(text_color= "red", state="disabled", font=("REM",18))
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
         global sum_of_terms, space, ibte
@@ -217,12 +216,11 @@ def summing_series():
 
      
     def gp():                                                                                       #   Function to calculate the sum and series of an gp
-        global sum_of_terms, space, ibte
+        global sum_of_terms, space, ibte, sheikh
         sequence.configure(state="normal", text_color="white" , font=("ariel",12))
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#   Clearing the sum of series
         validation()
-        print(conitnue)
         if conitnue == 0:
             f=0
             a=float(entry1.get())                                                                   #   "a"=first term
