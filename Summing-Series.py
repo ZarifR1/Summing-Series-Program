@@ -4,10 +4,20 @@ import textblob
 from tkinter import ttk, messagebox 
 import customtkinter
 
-def summing_series():                                                                       #   Making the program into a recallable function for increased stability and performance
+def summing_series():
+    def clear():                                                                            #   Function to clear inputs and outputs
+        sequence.configure(state="normal")
+        sequence.delete(1.0,END)
+        sequence.configure(state="disabled")
+        space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
+        entry1.delete(0,END)                                                                
+        entry2.delete(0,END)
+        entry3.delete(0,END)                                                                       #   Making the program into a recallable function for increased stability and performance
+        
 
     def switch():                                                                           #   Switches themes
-        global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour                     #   Allows these variables to be used anywhere
+        global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour        #   Allows these variables to be used anywhere
+        clear()                   
         current_theme = root.cget("background")                                             #   Recieves the colour of the background
         if current_theme == "grey19":                                                       #   Checks which theme the progam is running
             theme = "light"                                                                 #   Switches to the theme it isn't running
@@ -21,6 +31,7 @@ def summing_series():                                                           
             bg_colour = "grey17"
             fg_colour = "grey35"
             text_colour = "white"
+
 
         root.config(bg=theme_accent)
         customtkinter.set_appearance_mode(theme)                                            #    Updating all GUI text, this includes the colour scheme
@@ -46,7 +57,7 @@ def summing_series():                                                           
 
     root=Tk()                                                                               #   creating GUI window
     root.title("Summing Series")
-    root.geometry("550x800")                                                                #   Assigns the resolution of this window
+    root.geometry("550x700")                                                                #   Assigns the resolution of this window
     root.config(bg=theme_accent)                                                            #   Sets the background colour
     frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                                 #   Adds a frame to the program
@@ -173,14 +184,7 @@ def summing_series():                                                           
             sequence.configure(text_color= "red", state="disabled", font=("REM",18))
 
 
-    def clear():                                                                            #   Function to clear inputs and outputs
-        sequence.configure(state="normal")
-        sequence.delete(1.0,END)
-        sequence.configure(state="disabled")
-        space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
-        entry1.delete(0,END)                                                                
-        entry2.delete(0,END)
-        entry3.delete(0,END)
+
 
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
@@ -214,7 +218,7 @@ def summing_series():                                                           
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
             ibte = 2                                                                                #   Placeholder term --> used like memory 
         else:                                                                                       #   used to make sure changing theme works
-            pass                                                                                    #   while calculations are happening and keeps answers
+            ibte=0                                                                                    #   while calculations are happening and keeps answers
 
      
     def gp():                                                                                       #   Function to calculate the sum and series of an gp
@@ -255,6 +259,17 @@ def summing_series():                                                           
         else:
             pass
         
+    switch_button=customtkinter.CTkSwitch(root,text="Switch Theme", command=switch)
+    switch_button.pack()
+
+    label7=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
+    label7.place(x=60,y=600)
+
+    languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
+    language_list=list(languages.values())
+
+    translated_combo=customtkinter.CTkComboBox(root, width=20, values=language_list)               #   Options and placements
+    translated_combo.place(x=150,y=600)
 
     radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)#   Creating radiobuttons for user to 
     radio2=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)#    choose between ap and gp
@@ -269,7 +284,6 @@ def summing_series():                                                           
     root.config(menu=menubar)
     file_menu=Menu(menubar,tearoff=False)
     file_menu.add_command(label="Language",command=open_translate)
-    file_menu.add_command(label="Customise", command=switch)
     menubar.add_cascade(label="Settings", menu=file_menu)
 
     root.mainloop()
@@ -282,6 +296,7 @@ Sum_of_series="  Sum  "
 Clear="  Clear  "
 Arithmetic_Progression="Arithmetic Progression"
 Geometric_Progression="Geometric Progression"
+
 
 x1=100
 y1=50
@@ -299,10 +314,6 @@ y7=350
 x8=80
 y8=500
 
-x1_1 = 200                                                                                          #   Coordinates of entry
-y1 = 50
-
-x1_2 = 150                                                                                          #   Other coordinates
 
 theme = "dark"                                                                                      #   Predefined theme out of the standard 
 
