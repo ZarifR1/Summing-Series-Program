@@ -248,7 +248,8 @@ def summing_series():
                 sum=(a*((d**n)-1))/(d-1)                                                            #   Sum of series
                 sum=round(sum,Increment_decimal)                                                    #   Round the sum of terms                                                            
             except Exception as e:                                                                  #   Distincts error from calculation
-                messagebox.showerror("Sum of Series",e)                                             #   Shows error when increment is 1     #   Sum of all terms
+                messagebox.showerror("Sum of Series",e)
+                sum=a*n                                                                             #   Shows error when increment is 1     #   Sum of all terms
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
             sequence.configure(state="disabled")
@@ -269,7 +270,8 @@ def summing_series():
     original_combo=ttk.Combobox(root,width=20,value=language_list)                    #   Comboboxes and Layout of GUI and placements
     original_combo.current(21)
     
-    translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list)               #   Options and placements
+    translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list)
+    translated_combo.set("english")                                                     #   Options and placements
     translated_combo.place(x=340,y=617)
 
     translate_GUI=customtkinter.CTkButton(root,text="Translate", command=translate , bg_color=bg_colour, corner_radius=15 )
@@ -286,6 +288,8 @@ def summing_series():
 
     radio1.place(x=x3,y=y4)                                                                         #   Placing radiobuttons on window
     radio2.place(x=x4,y=y4)
+
+    translate()
 
     root.mainloop()
                                                                                                     #   Predefined settings for program
