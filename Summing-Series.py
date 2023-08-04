@@ -12,12 +12,13 @@ def summing_series():
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         entry1.delete(0,END)                                                                
         entry2.delete(0,END)
-        entry3.delete(0,END)                                                                       #   Making the program into a recallable function for increased stability and performance
+        entry3.delete(0,END) 
+        radio1.deselect()
+        radio2.deselect()                                                                      #   Making the program into a recallable function for increased stability and performance
         
 
     def switch():                                                                           #   Switches themes
-        global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour        #   Allows these variables to be used anywhere
-        clear()                   
+        global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour        #   Allows these variables to be used anywhere                   
         current_theme = root.cget("background")                                             #   Recieves the colour of the background
         if current_theme == "grey19":                                                       #   Checks which theme the progam is running
             theme = "light"                                                                 #   Switches to the theme it isn't running
