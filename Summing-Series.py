@@ -95,23 +95,26 @@ def summing_series():
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
 
-    def validation():                                                                       #   Checks if the entry input is valid
+    def validation(Msg,check):                                                                       #   Checks if the entry input is valid
         global conitnue, a, n, d
         sequence.configure(state="normal")
         sequence.delete(1.0, END)
-        try:
-            a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
-            if n < 0:
-                sequence.insert(1.0, text="Please check entries and try again")
+        if check == 0:
+            try:
+                a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
+                if n < 0:
+                    sequence.insert(1.0, text=Msg)
+                    sequence.configure(text_color= "red", state="disabled", font=("REM",18))
+                    conitnue=1
+                else:
+                    conitnue = 0
+            except ValueError:
+                conitnue = 1
+                sequence.insert(1.0, text=Msg)
                 sequence.configure(text_color= "red", state="disabled", font=("REM",18))
-                conitnue=1
-            else:
-                conitnue = 0
-        except ValueError:
-            conitnue = 1
-            sequence.insert(1.0, text="Please check entries and try again")
-            sequence.configure(text_color= "red", state="disabled", font=("REM",18))
-
+        else:
+            pass
+    
     def translate():
         global Error_msg                                                                        #   Function to translate languages
         try:                                                                                #   Get the languages from Dictionary Keys
@@ -133,7 +136,8 @@ def summing_series():
                 radio2.configure(text = "Geometric Progression")
                 clear_button.configure(text = "  Clear ")
                 root.title("Summing Series")
-                
+                Error_msg="Please check entries and try again"
+                validation(Error_msg,1)
                 translate_GUI.configure(text="Translate text")
                 switch_button.configure(text= "Switch theme")
                 label7.configure(text="Translated Language")
@@ -165,7 +169,7 @@ def summing_series():
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
                 root.title(GUI_Title)
-                
+                validation(Error_msg,1)
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
                 label7.configure(text=Translated_Language)
@@ -186,7 +190,7 @@ def summing_series():
         sequence.configure(state="normal", text_color="white" , font=("ariel",12))
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#  Clearing the sum of series
-        validation()
+        validation(Error_msg,0)
         if conitnue == 0:
             f=0                                                                                     #   "f"th term in the series 
             a=float(entry1.get())                                                                   #   "a"=first term
@@ -220,7 +224,7 @@ def summing_series():
         sequence.configure(state="normal", text_color="white" , font=("ariel",12))
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#   Clearing the sum of series
-        validation()
+        validation(Error_msg,0)
         if conitnue == 0:
             f=0
             a=float(entry1.get())                                                                   #   "a"=first term
