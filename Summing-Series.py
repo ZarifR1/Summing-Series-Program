@@ -56,14 +56,14 @@ def summing_series():
         if ibte == 3:
             gp()
         else:
-            ibte=0                                                                          #   Unsure why this fixes the code
+            ibte=0                                                                         #   Unsure why this fixes the code
     
             
 
     root=Tk()                                                                               #   creating GUI window
     root.title("Summing Series")
     root.geometry("550x700") 
-    root.maxsize(width=550, height=800)                                                               #   Assigns the resolution of this window
+    root.maxsize(width=1000, height=700)                                                               #   Assigns the resolution of this window
     root.config(bg=theme_accent)                                                            #   Sets the background colour
     frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                                 #   Adds a frame to the program
@@ -95,6 +95,60 @@ def summing_series():
     entry1.place(x=x2,y=y1)                                                                 #   Placing entries on window
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
+    
+    def choose_first_term(number):
+        pass
+
+    def choose_increment():
+        pass
+
+    def choose_num_terms():
+        pass
+
+    label8=customtkinter.CTkLabel(root,text="Choose the entry box",bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
+    label8.place(x=650,y=50)
+
+    radio_First_term=customtkinter.CTkRadioButton(root,text="First Term",command=choose_first_term,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)                  #    Entry box selection radiobuttons
+    radio_First_term.place(x=550,y=100)
+
+    radio_Increment=customtkinter.CTkRadioButton(root,text="Increment",command=choose_increment,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
+    radio_Increment.place(x=670,y=100)
+
+    radio_Num_Terms=customtkinter.CTkRadioButton(root,text="Number of terms",command=choose_num_terms,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
+    radio_Num_Terms.place(x=780,y=100)
+
+    key_1=customtkinter.CTkButton(root,text="1",width=100,bg_color=bg_colour,fg_color=fg_colour)                                                #   Keypad numbers
+    key_1.place(x=570,y=150)
+
+    key_2=customtkinter.CTkButton(root,text="2",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_2.place(x=675,y=150)
+
+    key_3=customtkinter.CTkButton(root,text="3",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_3.place(x=780,y=150)
+
+    key_4=customtkinter.CTkButton(root,text="4",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_4.place(x=570,y=183)
+
+    key_5=customtkinter.CTkButton(root,text="5",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_5.place(x=675,y=183)
+
+    key_6=customtkinter.CTkButton(root,text="6",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_6.place(x=780,y=183)
+
+    key_7=customtkinter.CTkButton(root,text="7",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_7.place(x=570,y=216)
+
+    key_8=customtkinter.CTkButton(root,text="8",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_8.place(x=675,y=216)
+
+    key_9=customtkinter.CTkButton(root,text="9",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_9.place(x=780,y=216)
+
+    key_0=customtkinter.CTkButton(root,text="0",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_0.place(x=675,y=249)
+
+    key_delete=customtkinter.CTkButton(root,text="delete",width=100,bg_color=bg_colour,fg_color=fg_colour)
+    key_delete.place(x=780,y=249)
 
     def validation(Msg,check):                                                                       #   Checks if the entry input is valid
         global conitnue, a, n, d
