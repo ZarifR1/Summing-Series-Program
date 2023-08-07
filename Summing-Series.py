@@ -96,14 +96,56 @@ def summing_series():
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
     
+    def First_term_input(number):
+        current=entry1.get()
+        entry1.delete()
+        entry1.insert(0,str(current)+str(number))
+
+    def Increment_input(number):
+        current=entry2.get()
+        entry2.delete()
+        entry2.insert(0,str(current)+str(number))
+
+    def Num_of_terms_input(number):
+        current=entry3.get()
+        entry3.delete()
+        entry3.insert(0,str(current)+str(number))
+
     def choose_first_term(number):
-        pass
+        key_1.configure(command=lambda: First_term_input(1))
+        key_2.configure(command=lambda: First_term_input(2))
+        key_3.configure(command=lambda: First_term_input(3))
+        key_4.configure(command=lambda: First_term_input(4))
+        key_5.configure(command=lambda: First_term_input(5))
+        key_6.configure(command=lambda: First_term_input(6))
+        key_7.configure(command=lambda: First_term_input(7))
+        key_8.configure(command=lambda: First_term_input(8))
+        key_9.configure(command=lambda: First_term_input(9))
+        key_0.configure(command=lambda: First_term_input(0))
 
     def choose_increment():
-        pass
+        key_1.configure(command=lambda: Increment_input(1))
+        key_2.configure(command=lambda: Increment_input(2))
+        key_3.configure(command=lambda: Increment_input(3))
+        key_4.configure(command=lambda: Increment_input(4))
+        key_5.configure(command=lambda: Increment_input(5))
+        key_6.configure(command=lambda: Increment_input(6))
+        key_7.configure(command=lambda: Increment_input(7))
+        key_8.configure(command=lambda: Increment_input(8))
+        key_9.configure(command=lambda: Increment_input(9))
+        key_0.configure(command=lambda: Increment_input(0))
 
     def choose_num_terms():
-        pass
+        key_1.configure(command=lambda: Num_of_terms_input(1))
+        key_2.configure(command=lambda: Num_of_terms_input(2))
+        key_3.configure(command=lambda: Num_of_terms_input(3))
+        key_4.configure(command=lambda: Num_of_terms_input(4))
+        key_5.configure(command=lambda: Num_of_terms_input(5))
+        key_6.configure(command=lambda: Num_of_terms_input(6))
+        key_7.configure(command=lambda: Num_of_terms_input(7))
+        key_8.configure(command=lambda: Num_of_terms_input(8))
+        key_9.configure(command=lambda: Num_of_terms_input(9))
+        key_0.configure(command=lambda: Num_of_terms_input(0))
 
     label8=customtkinter.CTkLabel(root,text="Choose the entry box",bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
     label8.place(x=650,y=50)
