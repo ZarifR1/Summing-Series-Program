@@ -12,7 +12,8 @@ def summing_series():
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         entry1.delete(0,END)                                                                
         entry2.delete(0,END)
-        entry3.delete(0,END) 
+        entry3.delete(0,END)
+        entry4.delete(0,END) 
         radio1.deselect()
         radio2.deselect()                                                                      #   Making the program into a recallable function for increased stability and performance
         
@@ -47,10 +48,25 @@ def summing_series():
         entry1.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry2.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        entry4.configure(bg_color=bg_colour, fg_color=fg_colour)
         sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
         label7.configure(bg_color=bg_colour, fg_color=fg_colour)
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
-    
+        key_1.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_2.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_3.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_4.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_5.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_6.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_7.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_8.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_9.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_0.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_delete.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_clear.configure(bg_color=bg_colour, fg_color=fg_colour)
+        
+        
+        
         
         if ibte == 2:
             ap()
@@ -97,62 +113,89 @@ def summing_series():
     entry2.place(x=x2,y=y2)
     entry3.place(x=x2,y=y3)
     
-    def choose_first_term(number):
-        pass
+    
+    def clear_entry():
+        entry4.delete(0,  END)
+        
+    def choose_first_term():
+        entry1.insert(0, entry4.get())
+        clear_entry()
+        radio_Increment.deselect()
+        radio_Num_Terms.deselect()
 
     def choose_increment():
-        pass
+        entry2.insert(0, entry4.get())
+        clear_entry()
+        radio_First_term.deselect()
+        radio_Num_Terms.deselect()
 
     def choose_num_terms():
-        pass
+        entry3.insert(0, entry4.get())
+        clear_entry()
+        radio_First_term.deselect()
+        radio_Increment.deselect()
 
+    def insert_entry(number):
+        current=entry4.get()
+        entry4.delete(0,END)
+        entry4.insert(0,str(current)+str(number))
+        
+    def delete_entry():
+        i = len(entry4.get())
+        entry4.delete(i-1)
+        
+    
+    
     entry4=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)
-    entry4.place(x=675, y =280)
+    entry4.place(x=675-15, y =145)
     
     label8=customtkinter.CTkLabel(root,text="Choose the entry box",bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
-    label8.place(x=650,y=50)
+    label8.place(x=650+10,y=50)
 
-    radio_First_term=customtkinter.CTkRadioButton(root,text="First Term",command=choose_first_term,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)                  #    Entry box selection radiobuttons
+    radio_First_term=customtkinter.CTkRadioButton(root,text=First_term,command=choose_first_term,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)                  #    Entry box selection radiobuttons
     radio_First_term.place(x=550,y=100)
 
-    radio_Increment=customtkinter.CTkRadioButton(root,text="Increment",command=choose_increment,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
+    radio_Increment=customtkinter.CTkRadioButton(root,text=Increment,command=choose_increment,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
     radio_Increment.place(x=670,y=100)
 
-    radio_Num_Terms=customtkinter.CTkRadioButton(root,text="Number of terms",command=choose_num_terms,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
+    radio_Num_Terms=customtkinter.CTkRadioButton(root,text=Num_of_terms,command=choose_num_terms,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)
     radio_Num_Terms.place(x=780,y=100)
 
-    key_1=customtkinter.CTkButton(root,text="1",width=100,bg_color=bg_colour,fg_color=fg_colour)                                                #   Keypad numbers
-    key_1.place(x=570,y=150)
+    key_1=customtkinter.CTkButton(root,text="1",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(1) )                                                #   Keypad numbers
+    key_1.place(x=570,y=150+40)
 
-    key_2=customtkinter.CTkButton(root,text="2",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_2.place(x=675,y=150)
+    key_2=customtkinter.CTkButton(root,text="2",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(2) )
+    key_2.place(x=675,y=150+40)
 
-    key_3=customtkinter.CTkButton(root,text="3",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_3.place(x=780,y=150)
+    key_3=customtkinter.CTkButton(root,text="3",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(3) )
+    key_3.place(x=780,y=150+40)
 
-    key_4=customtkinter.CTkButton(root,text="4",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_4.place(x=570,y=183)
+    key_4=customtkinter.CTkButton(root,text="4",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(4) )
+    key_4.place(x=570,y=183+40)
 
-    key_5=customtkinter.CTkButton(root,text="5",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_5.place(x=675,y=183)
+    key_5=customtkinter.CTkButton(root,text="5",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(5) )
+    key_5.place(x=675,y=183+40)
 
-    key_6=customtkinter.CTkButton(root,text="6",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_6.place(x=780,y=183)
+    key_6=customtkinter.CTkButton(root,text="6",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(6) )
+    key_6.place(x=780,y=183+40)
 
-    key_7=customtkinter.CTkButton(root,text="7",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_7.place(x=570,y=216)
+    key_7=customtkinter.CTkButton(root,text="7",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(7) )
+    key_7.place(x=570,y=216+40)
 
-    key_8=customtkinter.CTkButton(root,text="8",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_8.place(x=675,y=216)
+    key_8=customtkinter.CTkButton(root,text="8",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(8) )
+    key_8.place(x=675,y=216+40)
 
-    key_9=customtkinter.CTkButton(root,text="9",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_9.place(x=780,y=216)
+    key_9=customtkinter.CTkButton(root,text="9",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(9) )
+    key_9.place(x=780,y=216+40)
 
-    key_0=customtkinter.CTkButton(root,text="0",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_0.place(x=675,y=249)
+    key_0=customtkinter.CTkButton(root,text="0",width=100,bg_color=bg_colour,fg_color=fg_colour, command=lambda:insert_entry(0) )
+    key_0.place(x=675,y=249+40)
 
-    key_delete=customtkinter.CTkButton(root,text="delete",width=100,bg_color=bg_colour,fg_color=fg_colour)
-    key_delete.place(x=780,y=249)
+    key_delete=customtkinter.CTkButton(root,text="DEL",width=100,bg_color=bg_colour,fg_color=fg_colour, command=delete_entry )
+    key_delete.place(x=780,y=249+40)
+    
+    key_clear=customtkinter.CTkButton(root,text="AC",width=100,bg_color=bg_colour,fg_color=fg_colour, command=clear_entry )
+    key_clear.place(x=570,y=249+40)
 
     def validation(Msg,check):                                                                       #   Checks if the entry input is valid
         global conitnue, a, n, d
@@ -200,7 +243,10 @@ def summing_series():
                 translate_GUI.configure(text="Translate text")
                 switch_button.configure(text= "Switch theme")
                 label7.configure(text="Translated Language")
-                
+                radio_First_term.configure(text="First term")
+                radio_Increment.configure(text="Increment")
+                radio_Num_Terms.configure(text="Number of terms")
+        
                 
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
@@ -232,6 +278,9 @@ def summing_series():
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
                 label7.configure(text=Translated_Language)
+                radio_First_term.configure(text=First_term)
+                radio_Increment.configure(text=Increment)
+                radio_Num_Terms.configure(text=Num_of_terms)
 
                 
                 
