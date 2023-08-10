@@ -34,7 +34,6 @@ def summing_series():
             fg_colour = "grey35"
             text_colour = "white"
 
-        Blank.configure(fg_color=theme_accent)
         root.config(bg=theme_accent)
         customtkinter.set_appearance_mode(theme)                                            #    Updating all GUI text, this includes the colour scheme
         label1.configure(bg_color=bg_colour, fg_color=fg_colour)
@@ -52,18 +51,23 @@ def summing_series():
         sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
         label7.configure(bg_color=bg_colour, fg_color=fg_colour)
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
-        key_1.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_2.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_3.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_4.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_5.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_6.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_7.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_8.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_9.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_0.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_delete.configure(bg_color=bg_colour, fg_color=fg_colour)
-        key_clear.configure(bg_color=bg_colour, fg_color=fg_colour)
+        key_1.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_2.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_3.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_4.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_5.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_6.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_7.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_8.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_9.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_0.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_delete.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        key_clear.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        label8.configure(bg_color=bg_colour,fg_color=fg_colour)
+        radio_First_term.configure(bg_color=bg_colour,fg_color=fg_colour)
+        radio_Increment.configure(bg_color=bg_colour,fg_color=fg_colour)
+        radio_Num_Terms.configure(bg_color=bg_colour,fg_color=fg_colour)
+        switch_button.configure(bg_color=bg_colour,fg_color=fg_colour)
         
         
         
@@ -79,8 +83,8 @@ def summing_series():
 
     root=Tk()                                                                               #   creating GUI window
     root.title("Summing Series")
-    root.geometry("550x700") 
-    root.maxsize(width=1000, height=700)                                                               #   Assigns the resolution of this window
+    root.geometry("550x620") 
+    root.maxsize(width=1000, height=620)                                                               #   Assigns the resolution of this window
     root.config(bg=theme_accent)                                                            #   Sets the background colour
     frame1 = customtkinter.CTkFrame(master=root, corner_radius=30)
     frame1.pack(pady=20, padx=60, fill="both", expand=True)                                 #   Adds a frame to the program
@@ -118,18 +122,21 @@ def summing_series():
         entry4.delete(0,  END)
         
     def choose_first_term():
+        entry1.delete(0,END)
         entry1.insert(0, entry4.get())
         clear_entry()
         radio_Increment.deselect()
         radio_Num_Terms.deselect()
 
     def choose_increment():
+        entry2.delete(0,END)
         entry2.insert(0, entry4.get())
         clear_entry()
         radio_First_term.deselect()
         radio_Num_Terms.deselect()
 
     def choose_num_terms():
+        entry3.delete(0,END)
         entry3.insert(0, entry4.get())
         clear_entry()
         radio_First_term.deselect()
@@ -246,6 +253,7 @@ def summing_series():
                 radio_First_term.configure(text="First term")
                 radio_Increment.configure(text="Increment")
                 radio_Num_Terms.configure(text="Number of terms")
+                label8.configure(text="Choose the entry box")
         
                 
                 
@@ -264,7 +272,8 @@ def summing_series():
                 Translate_text=(textblob.TextBlob("Translate").translate(from_lang=from_language_key, to=to_language_key))
                 Switch_text=(textblob.TextBlob("Switch").translate(from_lang=from_language_key, to=to_language_key))
                 Translated_Language=(textblob.TextBlob("Translated Language").translate(from_lang=from_language_key, to=to_language_key))
-                
+                Choose_entry_text=(textblob.TextBlob("Choose the entry box").translate(from_lang=from_language_key, to=to_language_key))
+
                 label1.configure(text = First_term)                                                                                                 #   Changes the text on labels
                 label2.configure(text = Increment)                                                                                                  #   radiobuttons and buttons
                 label3.configure(text = Num_of_terms)
@@ -281,6 +290,7 @@ def summing_series():
                 radio_First_term.configure(text=First_term)
                 radio_Increment.configure(text=Increment)
                 radio_Num_Terms.configure(text=Num_of_terms)
+                label8.configure(text=Choose_entry_text)
 
                 
                 
@@ -365,12 +375,9 @@ def summing_series():
         else:
             pass
         radio1.deselect()
-
-    Blank=customtkinter.CTkLabel(root,text="                               ",fg_color=theme_accent)
-    Blank.pack(pady=40)
     
     label7=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
-    label7.place(x=60,y=617)
+    label7.place(x=570,y=430)
 
     languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
     language_list=list(languages.values())
@@ -380,13 +387,13 @@ def summing_series():
     
     translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list)
     translated_combo.set("english")                                                     #   Options and placements
-    translated_combo.place(x=340,y=617)
+    translated_combo.place(x=570,y=480)
 
     translate_GUI=customtkinter.CTkButton(root,text="Translate", command=translate , bg_color=bg_colour, corner_radius=15 )
-    translate_GUI.place(x=60,y=664)
+    translate_GUI.place(x=570,y=530)
 
-    switch_button=customtkinter.CTkSwitch(root,text="Switch Theme", command=switch)
-    switch_button.place(x=340,y=664)
+    switch_button=customtkinter.CTkSwitch(root,text="Switch Theme", command=switch,bg_color=bg_colour,fg_color=fg_colour)
+    switch_button.place(x=750,y=530)
 
     radio1=customtkinter.CTkRadioButton(root,text=Arithmetic_Progression,command=ap, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15,value=1)#   Creating radiobuttons for user to 
     radio2=customtkinter.CTkRadioButton(root,text=Geometric_Progression,command=gp, bg_color=bg_colour, fg_color=fg_colour, corner_radius=15)#    choose between ap and gp
