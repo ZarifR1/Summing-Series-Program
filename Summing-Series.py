@@ -79,10 +79,18 @@ def summing_series():
         else:
             ibte=0                                                                         #   Unsure why this fixes the code
     
-            
+    def expand(state_gui):                                                                 #    Expands the GUI to show the keypad, translator and theme changer
+        if state_gui == 0:
+            root.geometry("1000x620")
+            expand_button.configure(text="\u2190",command=lambda: expand(1))
+        else:
+            root.geometry("550x620")
+            expand_button.configure(text="\u2192",command=lambda:expand(0))
+        
 
     root=Tk()                                                                               #   creating GUI window
     root.title("Summing Series")
+    size="550x620"
     root.geometry("550x620") 
     root.maxsize(width=1000, height=620)                                                               #   Assigns the resolution of this window
     root.config(bg=theme_accent)                                                            #   Sets the background colour
@@ -153,7 +161,7 @@ def summing_series():
         
     
     
-    entry4=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)
+    entry4=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)                                                                            # Entry for the key pad written term
     entry4.place(x=675-15, y =145)
     
     label8=customtkinter.CTkLabel(root,text="Choose the entry box",bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
@@ -376,6 +384,9 @@ def summing_series():
             pass
         radio1.deselect()
     
+    expand_button=customtkinter.CTkButton(root,text="\u2192",width=50,bg_color=bg_colour,fg_color=fg_colour,command=lambda:expand(0))       #   Button which expands the GUI
+    expand_button.place(x=420,y=530)
+
     label7=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour)
     label7.place(x=570,y=430)
 
