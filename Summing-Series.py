@@ -290,8 +290,6 @@ def summing_series():
                     Label9.configure(text=Res_mod+" "+str(new_scale)+"x")
                 except:
                     Label9.configure(text=Res_mod+" "+str(1)+"x")
-                    
-        
                 
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
@@ -300,7 +298,10 @@ def summing_series():
                 Increment=(textblob.TextBlob("  Increment  ").translate(from_lang=from_language_key,to=to_language_key))
                 Num_of_terms=(textblob.TextBlob("  Number of terms  ").translate(from_lang=from_language_key,to=to_language_key))
                 Series=(textblob.TextBlob("  Series  ").translate(from_lang=from_language_key,to=to_language_key))
-                Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
+                if translated_combo.get()!="danish":
+                    Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
+                else:
+                    Sum_of_series="Sum"
                 Clear=(textblob.TextBlob("  Clear  ").translate(from_lang=from_language_key,to=to_language_key))
                 Arithmetic_Progression=(textblob.TextBlob("Arithmetic Progression").translate(from_lang=from_language_key,to=to_language_key))
                 Geometric_Progression=(textblob.TextBlob("Geometric Progression").translate(from_lang=from_language_key,to=to_language_key))
@@ -316,7 +317,7 @@ def summing_series():
                 label2.configure(text = Increment)                                                                                                  #   radiobuttons and buttons
                 label3.configure(text = Num_of_terms)
                 label4.configure(text = Series)    
-                label5.configure(text = Sum_of_series)
+                label5.configure(text=Sum_of_series)
                 radio1.configure(text = Arithmetic_Progression)
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
