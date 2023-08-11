@@ -52,7 +52,7 @@ def summing_series():
         entry3.configure(bg_color=bg_colour, fg_color=fg_colour)
         entry4.configure(bg_color=bg_colour, fg_color=fg_colour)
         sequence.configure(bg_color=bg_colour, fg_color=fg_colour)
-        label7.configure(bg_color=bg_colour, fg_color=fg_colour)
+        label6.configure(bg_color=bg_colour, fg_color=fg_colour)
         space=customtkinter.CTkLabel(root,text="                                                                      ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)
         key_1.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
         key_2.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
@@ -66,8 +66,8 @@ def summing_series():
         key_0.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
         key_delete.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
         key_clear.configure(bg_color=bg_colour, fg_color=fg_colour, text_color=text_colour)
+        label7.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
         label8.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
-        Label9.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
         radio_First_term.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
         radio_Increment.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
         radio_Num_Terms.configure(bg_color=bg_colour,fg_color=fg_colour, text_color=text_colour)
@@ -99,7 +99,7 @@ def summing_series():
         customtkinter.set_window_scaling(new_scale)
         customtkinter.set_widget_scaling(new_scale)
         text = Res_mod+" "+str(new_scale)+"x"
-        Label9.configure(text=text)
+        label8.configure(text=text)
         
 
     root=customtkinter.CTk()                                                                               #   creating GUI window
@@ -111,7 +111,7 @@ def summing_series():
     frame1 = customtkinter.CTkFrame(master=root, bg_color=theme_accent, corner_radius=30)
     frame1.pack(pady=20, padx=50, fill="both", expand=True)                                 #   Adds a frame to the program
     customtkinter.set_appearance_mode(theme)                                                #   Sets the theme, predefined themes can be set at the bottom of the code
-
+    root.resizable(0,0)
 
     global label1, label2, label3, label4, label5                                                                            #   Makes variable accessible from anywhere
     label1=customtkinter.CTkLabel(root,text=First_term, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6, width=150)             #   Creating Labels to inform user
@@ -178,11 +178,11 @@ def summing_series():
     entry4=customtkinter.CTkEntry(root, corner_radius=6, bg_color=bg_colour)                                                                            # Entry for the key pad written term
     entry4.place(x=675-15, y =145)
     
-    label8=customtkinter.CTkLabel(root,text=Choose_entry_text,bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
-    label8.place(x=650+10,y=50)
+    label7=customtkinter.CTkLabel(root,text=Choose_entry_text,bg_color=bg_colour,fg_color=fg_colour,corner_radius=6)                         #   Entry box selection label
+    label7.place(x=650+10,y=50)
     
-    Label9 = customtkinter.CTkLabel(root, text="Resolution Modifier: 1x", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour, width=150)
-    Label9.place(x=750,y=430)
+    label8 = customtkinter.CTkLabel(root, text="Resolution Modifier: 1x", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour, width=150)
+    label8.place(x=750,y=430)
 
     radio_First_term=customtkinter.CTkRadioButton(root,text=First_term,command=choose_first_term,bg_color=bg_colour,fg_color=fg_colour,corner_radius=15)                  #    Entry box selection radiobuttons
     radio_First_term.place(x=550,y=100)
@@ -236,12 +236,15 @@ def summing_series():
         if check == 0:
             try:
                 a, d, n = float(entry1.get()), float(entry2.get()), int(entry3.get())
-                if n < 0:
+                if n <= 0:
                     sequence.insert(1.0, text=Msg)
                     sequence.configure(text_color= "red", state="disabled", font=("REM",17))
                     conitnue=1
-                else:
-                    conitnue = 0
+                if n >= 2500:
+                    sequence.delete(1.0, END)
+                    sequence.insert(1.0, text=Math_Error)
+                    sequence.configure(text_color= "red", state="disabled", font=("REM",17))
+                else: conitnue = 0
             except ValueError:
                 conitnue = 1
                 sequence.insert(1.0, text=Msg)
@@ -250,7 +253,7 @@ def summing_series():
             pass
     
     def translate():
-        global Error_msg, Res_mod                                                                        #   Function to translate languages
+        global Error_msg, Res_mod, Math_Error                                               #   Function to translate languages
         try:                                                                                #   Get the languages from Dictionary Keys
             for key, value in languages.items():                                            #   Get the From Language key
                 if (value == original_combo.get()):
@@ -274,16 +277,16 @@ def summing_series():
                 validation(Error_msg,1)
                 translate_GUI.configure(text="Translate text")
                 switch_button.configure(text= "Switch theme")
-                label7.configure(text="Translated Language")
+                label6.configure(text="Translated Language")
                 radio_First_term.configure(text="First term", font=("ariel", 13))
                 radio_Increment.configure(text="Increment")
                 radio_Num_Terms.configure(text="Number of terms")
-                label8.configure(text="Choose the entry box")
+                label7.configure(text="Choose the entry box")
                 Res_mod = "Resolution Modifier:"
                 try:
-                    Label9.configure(text=Res_mod+" "+str(new_scale)+"x")
+                    label8.configure(text=Res_mod+" "+str(new_scale)+"x")
                 except:
-                    Label9.configure(text=Res_mod+" "+str(1)+"x")
+                    label8.configure(text=Res_mod+" "+str(1)+"x")
                 
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
@@ -306,6 +309,7 @@ def summing_series():
                 Translated_Language=(textblob.TextBlob("Translated Language").translate(from_lang=from_language_key, to=to_language_key))
                 Choose_entry_text=(textblob.TextBlob("Choose the entry box").translate(from_lang=from_language_key, to=to_language_key))
                 Res_mod=(textblob.TextBlob("Resolution Modifier:").translate(from_lang=from_language_key, to=to_language_key))
+                Math_Error = (textblob.TextBlob("Math Error").translate(from_lang=from_language_key, to=to_language_key))
                 
                 label1.configure(text = First_term)                                                                                                 #   Changes the text on labels
                 label2.configure(text = Increment)                                                                                                  #   radiobuttons and buttons
@@ -319,17 +323,17 @@ def summing_series():
                 validation(Error_msg,1)
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
-                label7.configure(text=Translated_Language)
+                label6.configure(text=Translated_Language)
                 if translated_combo.get() == "finnish":
                     radio_First_term.configure(text=First_term, font=("ariel", 10))
                 else: radio_First_term.configure(text=First_term, font=("ariel", 13))
                 radio_Increment.configure(text=Increment)
                 radio_Num_Terms.configure(text=Num_of_terms)
-                label8.configure(text=Choose_entry_text)
+                label7.configure(text=Choose_entry_text)
                 try:
-                    Label9.configure(text=Res_mod+" "+str(new_scale)+"x")
+                    label8.configure(text=Res_mod+" "+str(new_scale)+"x")
                 except:
-                    Label9.configure(text=Res_mod+" "+str(1)+"x")
+                    label8.configure(text=Res_mod+" "+str(1)+"x")
                 
             
             for j in range(0,int(len(languages.values()))):                                 #   Changing original language to new translated language
@@ -363,7 +367,11 @@ def summing_series():
                 f=f+1                                                                               #   Increments the terms
                 progression.append(",")                                                             #   Separates the terms
                 progression.append(round(a+f*d,decimal))                                                           #term inputted in the series
-            sum=(n/2)*(2*a+(n-1)*d)                                                                 #   Sum of all terms
+            try: sum=(n/2)*(2*a+(n-1)*d)                                                                 #   Sum of all terms
+            except:
+                sequence.delete(1.0, END)
+                sequence.insert(1.0, text=Math_Error)
+                sequence.configure(text_color= "red", state="disabled", font=("REM",17))
             sum=round(sum,decimal)                                                                  #   Round the sum of terms
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sequence.configure(state="disabled")
@@ -403,6 +411,10 @@ def summing_series():
             except Exception as e:                                                                  #   Distincts error from calculation
                 messagebox.showerror("Sum of Series",e)
                 sum=a*n                                                                             #   Shows error when increment is 1     #   Sum of all terms
+            except:
+                sequence.delete(1.0, END)
+                sequence.insert(1.0, text=Math_Error)
+                sequence.configure(text_color= "red", state="disabled", font=("REM",17))
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
             sequence.configure(state="disabled")
@@ -411,8 +423,8 @@ def summing_series():
     expand_button=customtkinter.CTkButton(root,text="\u2192",width=50,bg_color=bg_colour,fg_color=fg_colour,command=lambda:expand(0))       #   Button which expands the GUI
     expand_button.place(x=420,y=530)
 
-    label7=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour, width=150)
-    label7.place(x=570,y=430)
+    label6=customtkinter.CTkLabel(root, text="Translated Language", fg_color=fg_colour , corner_radius=6, bg_color=bg_colour, width=150)
+    label6.place(x=570,y=430)
 
     languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
     language_list=list(languages.values())
@@ -457,6 +469,7 @@ Arithmetic_Progression="Arithmetic Progression"
 Geometric_Progression="Geometric Progression"
 Choose_entry_text = "Chose the entry box"
 Res_mod = "Resolution Modifier"
+Math_Error = "Math Error"
 
 x1=100
 y1=50
