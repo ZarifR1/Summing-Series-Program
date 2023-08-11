@@ -240,11 +240,13 @@ def summing_series():
                     sequence.insert(1.0, text=Msg)
                     sequence.configure(text_color= "red", state="disabled", font=("REM",17))
                     conitnue=1
-                if n >= 2500:
+                if n >= 30000:
                     sequence.delete(1.0, END)
                     sequence.insert(1.0, text=Math_Error)
                     sequence.configure(text_color= "red", state="disabled", font=("REM",17))
-                else: conitnue = 0
+                    conitnue=1
+                else: 
+                    conitnue = 0
             except ValueError:
                 conitnue = 1
                 sequence.insert(1.0, text=Msg)
@@ -345,7 +347,7 @@ def summing_series():
         clear()
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
-        global sum_of_terms, space, ibte
+        global sum_of_terms, space
         sequence.configure(state="normal", text_color="white" , font=("ariel",12))
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ", bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#  Clearing the sum of series
@@ -381,7 +383,7 @@ def summing_series():
 
      
     def gp():                                                                                       #   Function to calculate the sum and series of an gp
-        global sum_of_terms, space, ibte
+        global sum_of_terms, space, conitnue
         sequence.configure(state="normal", text_color="white" , font=("ariel",12))
         sequence.delete(1.0,END)                                                                #   Clearing the series
         space=customtkinter.CTkLabel(root,text="                                                          ",bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#   Clearing the sum of series
@@ -403,21 +405,24 @@ def summing_series():
             while (f+1) != n:                                                                       #   Goes through the terms
                 f=f+1                                                                               #   Increments through the terms
                 progression.append(",")                                                             #   Separates the terms
-                progression.append(round(a*(d**f),Increment_decimal))                               #   Term inputted in the series
+                try: progression.append(round(a*(d**f),Increment_decimal))                               #   Term inputted in the series
+                except:
+                    sequence.delete(1.0, END)
+                    sequence.insert(1.0, text=Math_Error)
+                    sequence.configure(text_color= "red", state="disabled", font=("REM",17))
+                    conitnue = 1
+                    f = n-1
+            if conitnue == 0:
                 Increment_decimal=Increment_decimal*2                                               #   Incrementing decimal
-            try:
-                sum=(a*((d**n)-1))/(d-1)                                                            #   Sum of series
-                sum=round(sum,Increment_decimal)                                                    #   Round the sum of terms                                                            
-            except Exception as e:                                                                  #   Distincts error from calculation
-                messagebox.showerror("Sum of Series",e)
-                sum=a*n                                                                             #   Shows error when increment is 1     #   Sum of all terms
-            except:
-                sequence.delete(1.0, END)
-                sequence.insert(1.0, text=Math_Error)
-                sequence.configure(text_color= "red", state="disabled", font=("REM",17))
-            sequence.insert(1.0,progression)                                                        #   Inserting the series
-            sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
-            sequence.configure(state="disabled")
+                try:
+                    sum=(a*((d**n)-1))/(d-1)                                                            #   Sum of series
+                    sum=round(sum,Increment_decimal)                                                    #   Round the sum of terms                                                            
+                except Exception as e:                                                                 #   Distincts error from calculation
+                    messagebox.showerror("Sum of Series",e)
+                    sum=a*n                                                                            #   Shows error when increment is 1     #   Sum of all terms
+                sequence.insert(1.0,progression)                                                        #   Inserting the series
+                sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
+                sequence.configure(state="disabled")
         radio1.deselect()
     
     expand_button=customtkinter.CTkButton(root,text="\u2192",width=50,bg_color=bg_colour,fg_color=fg_colour,command=lambda:expand(0))       #   Button which expands the GUI
