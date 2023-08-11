@@ -23,15 +23,16 @@ def summing_series():
     def switch():                                                                           #   Switches themes
         global theme, current_theme, theme_accent, bg_colour, fg_colour, text_colour        #   Allows these variables to be used anywhere                   
         current_theme = root.cget("background")                                             #   Recieves the colour of the background
-        if current_theme == "grey19":                                                       #   Checks which theme the progam is running
+        if current_theme == "gray14":                                                       #   Checks which theme the progam is running
             theme = "light"                                                                 #   Switches to the theme it isn't running
-            theme_accent = "grey92"                                                         #   The colour palette of the different themes
+            theme_accent = "gray92"                                                         #   The colour palette of the different themes
             bg_colour = "grey86"                                                            #   Number next to colour is the darkness, lower is darker
             fg_colour = "grey70"
             text_colour = "black"
+            
         else:
             theme = "dark"
-            theme_accent = "grey19"
+            theme_accent = "gray14"
             bg_colour = "grey17"
             fg_colour = "grey35"
             text_colour = "white"
@@ -77,15 +78,7 @@ def summing_series():
         frame1.configure(bg_color=theme_accent)
         translated_combo.configure(bg_color=bg_colour, fg_color=fg_colour)
         
-        
-        
-        
-        if ibte == 2:
-            ap()
-        if ibte == 3:
-            gp()
-        else:
-            ibte=0                                                                         #   Unsure why this fixes the code
+        clear()                                                                            #   Unsure why this fixes the code
     
     def expand(state_gui):                                                                 #    Expands the GUI to show the keypad, translator and theme changer
         if state_gui == 0:
@@ -282,7 +275,7 @@ def summing_series():
                 translate_GUI.configure(text="Translate text")
                 switch_button.configure(text= "Switch theme")
                 label7.configure(text="Translated Language")
-                radio_First_term.configure(text="First term")
+                radio_First_term.configure(text="First term", font=("ariel", 13))
                 radio_Increment.configure(text="Increment")
                 radio_Num_Terms.configure(text="Number of terms")
                 label8.configure(text="Choose the entry box")
@@ -329,7 +322,7 @@ def summing_series():
                 label7.configure(text=Translated_Language)
                 if translated_combo.get() == "finnish":
                     radio_First_term.configure(text=First_term, font=("ariel", 10))
-                else: radio_First_term.configure(text=First_term)
+                else: radio_First_term.configure(text=First_term, font=("ariel", 13))
                 radio_Increment.configure(text=Increment)
                 radio_Num_Terms.configure(text=Num_of_terms)
                 label8.configure(text=Choose_entry_text)
@@ -375,9 +368,7 @@ def summing_series():
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sequence.configure(state="disabled")
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
-            ibte = 2                                                                                #   Placeholder term --> used like memory 
-        else:                                                                                       #   used to make sure changing theme works
-            ibte=0                                                                                    #   while calculations are happening and keeps answers
+
         radio2.deselect()
 
      
@@ -415,9 +406,6 @@ def summing_series():
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
             sequence.configure(state="disabled")
-            ibte = 3                                                                                #   Placeholder term --> used like memory
-        else:
-            pass
         radio1.deselect()
     
     expand_button=customtkinter.CTkButton(root,text="\u2192",width=50,bg_color=bg_colour,fg_color=fg_colour,command=lambda:expand(0))       #   Button which expands the GUI
@@ -452,12 +440,11 @@ def summing_series():
     res_slider.set(1)
     res_slider.place(x=750, y=485) 
 
-    radio1.place(x=x3,y=y4)                                                                         #   Placing radiobuttons on window
+    radio1.place(x=x3-5,y=y4)                                                                         #   Placing radiobuttons on window
     radio2.place(x=x4+5,y=y4)
 
     
     translate()
-    
     root.mainloop()
                                                                                                     #   Predefined settings for program
 First_term="  First term  "                                                                         #   Predefined language
@@ -490,15 +477,14 @@ y8=530
 theme = "dark"                                                                                      #   Predefined theme out of the standard 
 
 if theme == "light":
-    theme_accent = "grey60"                                                                         #   Colour palette of predefined themes
+    theme_accent = "gray92"                                                                         #   Colour palette of predefined themes
     bg_colour = "grey86"
     fg_colour = "grey70"
     text_colour = "black"
 if theme == "dark":
-    theme_accent = "grey19"
+    theme_accent = "gray14"
     bg_colour = "grey17"
     fg_colour = "grey35"
     text_colour = "white"
 
-ibte = 0                                                                                            #   Ibte is required to run the code as it acts like memory
 summing_series()                                                                                    #   Runs the program (which is in a function)
