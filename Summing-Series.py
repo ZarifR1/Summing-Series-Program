@@ -75,6 +75,7 @@ def summing_series():
         translate_GUI.configure(bg_color=bg_colour)
         res_slider.configure(bg_color=bg_colour, fg_color=fg_colour)
         frame1.configure(bg_color=theme_accent)
+        translated_combo.configure(bg_color=bg_colour, fg_color=fg_colour)
         
         
         
@@ -326,7 +327,9 @@ def summing_series():
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
                 label7.configure(text=Translated_Language)
-                radio_First_term.configure(text=First_term)
+                if translated_combo.get() == "finnish":
+                    radio_First_term.configure(text=First_term, font=("ariel", 10))
+                else: radio_First_term.configure(text=First_term)
                 radio_Increment.configure(text=Increment)
                 radio_Num_Terms.configure(text=Num_of_terms)
                 label8.configure(text=Choose_entry_text)
@@ -334,8 +337,6 @@ def summing_series():
                     Label9.configure(text=Res_mod+" "+str(new_scale)+"x")
                 except:
                     Label9.configure(text=Res_mod+" "+str(1)+"x")
-
-                
                 
             
             for j in range(0,int(len(languages.values()))):                                 #   Changing original language to new translated language
@@ -344,7 +345,7 @@ def summing_series():
             
         except Exception as e:
             messagebox.showerror("Translator",e)
-    
+        clear()
     
     def ap():                                                                                       #   Function to calculate the sum and series of an ap
         global sum_of_terms, space, ibte
@@ -452,10 +453,11 @@ def summing_series():
     res_slider.place(x=750, y=485) 
 
     radio1.place(x=x3,y=y4)                                                                         #   Placing radiobuttons on window
-    radio2.place(x=x4,y=y4)
+    radio2.place(x=x4+5,y=y4)
 
+    
     translate()
-
+    
     root.mainloop()
                                                                                                     #   Predefined settings for program
 First_term="  First term  "                                                                         #   Predefined language
