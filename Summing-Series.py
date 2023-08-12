@@ -120,8 +120,8 @@ def summing_series():
     label4=customtkinter.CTkLabel(root,text=Series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6, width=80)                 #   corner_radius = roundness of the corners
     label5=customtkinter.CTkLabel(root,text=Sum_of_series, fg_color=fg_colour, bg_color=bg_colour, corner_radius=6, width=80)
     
-    sequence=customtkinter.CTkTextbox(root, width=300, height=250, corner_radius=15, fg_color=fg_colour, bg_color=bg_colour)                                                  #   Creating series and sum of series
-    sequence.place(x=x6+10,y=y5)
+    sequence=customtkinter.CTkTextbox(root, width=290, height=250, corner_radius=15, fg_color=fg_colour, bg_color=bg_colour)                                                  #   Creating series and sum of series
+    sequence.place(x=x6+15,y=y5)
     sequence.configure(state="disabled")
 
     label1.place(x=x1,y=y1)                                                                 #   Placing labels on window
@@ -248,9 +248,9 @@ def summing_series():
                 else: 
                     conitnue = 0
             except ValueError:
-                conitnue = 1
                 sequence.insert(1.0, text=Msg)
                 sequence.configure(text_color= "red", state="disabled", font=("REM",17))
+                conitnue = 1
         else:
             pass
     
@@ -271,7 +271,7 @@ def summing_series():
                 label3.configure(text = "  Number of terms  ")
                 label4.configure(text = "  Series  ")                                       #   The text is changed instead of replaced
                 label5.configure(text = "  Sum  ")                                          #   which gives the program increased performance
-                radio1.configure(text = "Arithmetic Progression")   
+                radio1.configure(text = "Arithmetic Progression", font=("ariel",13))   
                 radio2.configure(text = "Geometric Progression")
                 clear_button.configure(text = "  Clear ")
                 root.title("Summing Series")
@@ -286,9 +286,9 @@ def summing_series():
                 label7.configure(text="Choose the entry box")
                 Res_mod = "Resolution Modifier:"
                 try:
-                    label8.configure(text=Res_mod+" "+str(new_scale)+"x")
+                    label8.configure(text=Res_mod+" "+str(new_scale)+"x", font=("ariel",13))
                 except:
-                    label8.configure(text=Res_mod+" "+str(1)+"x")
+                    label8.configure(text=Res_mod+"1x", font=("ariel", 13))
                 
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
@@ -297,7 +297,7 @@ def summing_series():
                 Increment=(textblob.TextBlob("  Increment  ").translate(from_lang=from_language_key,to=to_language_key))
                 Num_of_terms=(textblob.TextBlob("  Number of terms  ").translate(from_lang=from_language_key,to=to_language_key))
                 Series=(textblob.TextBlob("  Series  ").translate(from_lang=from_language_key,to=to_language_key))
-                if translated_combo.get()!="danish":
+                if translated_combo.get()!="danish" or translated_combo.get()!="norwegian":
                     Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
                 else:
                     Sum_of_series="Sum"
@@ -318,7 +318,8 @@ def summing_series():
                 label3.configure(text = Num_of_terms)
                 label4.configure(text = Series)    
                 label5.configure(text=Sum_of_series)
-                radio1.configure(text = Arithmetic_Progression)
+                if translated_combo.get() == "xhosa":radio1.configure(text = Arithmetic_Progression, font=("ariel", 9))
+                else: radio1.configure(text = Arithmetic_Progression, font=("ariel", 13))
                 radio2.configure(text = Geometric_Progression)
                 clear_button.configure(text = Clear)
                 root.title(GUI_Title)
@@ -326,16 +327,22 @@ def summing_series():
                 translate_GUI.configure(text=Translate_text)
                 switch_button.configure(text= Switch_text)
                 label6.configure(text=Translated_Language)
-                if translated_combo.get() == "finnish":
+                if translated_combo.get() == "finnish" or translated_combo.get() == "zulu" or translated_combo.get() == "georgian":
                     radio_First_term.configure(text=First_term, font=("ariel", 10))
                 else: radio_First_term.configure(text=First_term, font=("ariel", 13))
                 radio_Increment.configure(text=Increment)
                 radio_Num_Terms.configure(text=Num_of_terms)
                 label7.configure(text=Choose_entry_text)
                 try:
-                    label8.configure(text=Res_mod+" "+str(new_scale)+"x")
+                    if translated_combo.get() == "georgian" or translated_combo.get() == "xhosa":
+                        label8.configure(text=Res_mod+" "+str(new_scale)+"x", font=("ariel", 10))
+                    else: 
+                        label8.configure(text=Res_mod+" "+str(new_scale)+"x", font=("ariel", 13))
                 except:
-                    label8.configure(text=Res_mod+" "+str(1)+"x")
+                    if translated_combo.get() == "georgian" or translated_combo.get() == "xhosa":
+                        label8.configure(text=Res_mod+"1x", font=("ariel", 10))
+                    else:
+                        label8.configure(text=Res_mod+"1x", font=("ariel", 13))
                 
             
             for j in range(0,int(len(languages.values()))):                                 #   Changing original language to new translated language
