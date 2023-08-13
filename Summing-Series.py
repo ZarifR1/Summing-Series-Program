@@ -292,12 +292,13 @@ def summing_series():
                 
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
-
+                if to_language_key == "no": to_language_key = "da"
+                print(translated_combo.get())
                 First_term=(textblob.TextBlob("  First term  ").translate(from_lang=from_language_key,to=to_language_key))                          #   Translates all the variables
                 Increment=(textblob.TextBlob("  Increment  ").translate(from_lang=from_language_key,to=to_language_key))
                 Num_of_terms=(textblob.TextBlob("  Number of terms  ").translate(from_lang=from_language_key,to=to_language_key))
                 Series=(textblob.TextBlob("  Series  ").translate(from_lang=from_language_key,to=to_language_key))
-                if translated_combo.get()!="danish" or translated_combo.get()!="norwegian":
+                if to_language_key !="da":
                     Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
                 else:
                     Sum_of_series="Sum"
