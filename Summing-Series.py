@@ -266,14 +266,14 @@ def summing_series():
                     to_language_key=key
             
             if translated_combo.get() == "english":                                         #   English can't be translated to english
-                label1.configure(text = "  First term  ")                                   #   so english is the only language that was
-                label2.configure(text = "  Increment  ")                                    #   manually written
-                label3.configure(text = "  Number of terms  ")
-                label4.configure(text = "  Series  ")                                       #   The text is changed instead of replaced
-                label5.configure(text = "  Sum  ")                                          #   which gives the program increased performance
+                label1.configure(text = "First term")                                   #   so english is the only language that was
+                label2.configure(text = "Increment")                                    #   manually written
+                label3.configure(text = "Number of terms")
+                label4.configure(text = "Series")                                       #   The text is changed instead of replaced
+                label5.configure(text = "Sum")                                          #   which gives the program increased performance
                 radio1.configure(text = "Arithmetic Progression", font=("ariel",13))   
                 radio2.configure(text = "Geometric Progression")
-                clear_button.configure(text = "  Clear ")
+                clear_button.configure(text = "Clear")
                 root.title("Summing Series")
                 Error_msg="Please check entries and try again"
                 validation(Error_msg,1)
@@ -293,16 +293,15 @@ def summing_series():
                 
             if translated_combo.get() != "english":                                         #   Checks what language is picked, this one runs if it isn't english
                 if to_language_key == "no": to_language_key = "da"
-                print(translated_combo.get())
-                First_term=(textblob.TextBlob("  First term  ").translate(from_lang=from_language_key,to=to_language_key))                          #   Translates all the variables
-                Increment=(textblob.TextBlob("  Increment  ").translate(from_lang=from_language_key,to=to_language_key))
-                Num_of_terms=(textblob.TextBlob("  Number of terms  ").translate(from_lang=from_language_key,to=to_language_key))
-                Series=(textblob.TextBlob("  Series  ").translate(from_lang=from_language_key,to=to_language_key))
+                First_term=(textblob.TextBlob("First term").translate(from_lang=from_language_key,to=to_language_key))                          #   Translates all the variables
+                Increment=(textblob.TextBlob("Increment").translate(from_lang=from_language_key,to=to_language_key))
+                Num_of_terms=(textblob.TextBlob("Number of terms").translate(from_lang=from_language_key,to=to_language_key))
+                Series=(textblob.TextBlob("Series").translate(from_lang=from_language_key,to=to_language_key))
                 if to_language_key !="da":
-                    Sum_of_series=(textblob.TextBlob("  Sum  ").translate(from_lang=from_language_key,to=to_language_key))
+                    Sum_of_series=(textblob.TextBlob("Sum").translate(from_lang=from_language_key,to=to_language_key))
                 else:
                     Sum_of_series="Sum"
-                Clear=(textblob.TextBlob("  Clear  ").translate(from_lang=from_language_key,to=to_language_key))
+                Clear=(textblob.TextBlob("Clear").translate(from_lang=from_language_key,to=to_language_key))
                 Arithmetic_Progression=(textblob.TextBlob("Arithmetic Progression").translate(from_lang=from_language_key,to=to_language_key))
                 Geometric_Progression=(textblob.TextBlob("Geometric Progression").translate(from_lang=from_language_key,to=to_language_key))
                 GUI_Title=(textblob.TextBlob("Summing Series").translate(from_lang=from_language_key, to=to_language_key))
@@ -404,12 +403,11 @@ def summing_series():
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment        
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
-                decimal=decimal1
+                Increment_decimal=decimal1
             else:
-                decimal=decimal2                                                                    #   The 'fth' term in the series
+                Increment_decimal=decimal2                                                                    #   The 'fth' term in the series
             progression=[]                                                                          #   Empty series
-            progression.append(a*(d**f))                                                            #   First term
-            Increment_decimal=decimal                                                               #   Decimal to round off terms                                                      
+            progression.append(a*(d**f))                                                            #   First term                                                     
             while (f+1) != n:                                                                       #   Goes through the terms
                 f=f+1                                                                               #   Increments through the terms
                 progression.append(",")                                                             #   Separates the terms
@@ -442,10 +440,10 @@ def summing_series():
     languages=googletrans.LANGUAGES                                                     #   Grabbing languages from googletrans
     language_list=list(languages.values())
 
-    original_combo=ttk.Combobox(root,width=20,value=language_list)                    #   Comboboxes and Layout of GUI and placements
+    original_combo=ttk.Combobox(root,width=20,value=language_list)                    #   Comboboxes
     original_combo.current(21)
     
-    translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list)
+    translated_combo=customtkinter.CTkComboBox(root, width=150, values=language_list, bg_color=bg_colour)
     translated_combo.set("english")                                                     #   Options and placements
     translated_combo.place(x=570,y=480)
 
@@ -461,7 +459,7 @@ def summing_series():
     clear_button=customtkinter.CTkButton(root,text=Clear,command=clear,width=80, bg_color=bg_colour, corner_radius=15)#   Creating and placing clear button
     clear_button.place(x=x7-7,y=y7)
     
-    res_slider = customtkinter.CTkSlider(root, from_=0.5, to=3, command=scale, number_of_steps=25, width=150)
+    res_slider = customtkinter.CTkSlider(root, from_=0.5, to=3, command=scale, number_of_steps=25, width=150, bg_color=bg_colour)
     res_slider.set(1)
     res_slider.place(x=750, y=485) 
 
