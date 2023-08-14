@@ -410,7 +410,9 @@ def summing_series():
             while (f+1) != n:                                                                       #   Goes through the terms
                 f=f+1                                                                               #   Increments through the terms
                 progression.append(",")                                                             #   Separates the terms
-                try: progression.append(round(a*(d**f),Increment_decimal))                               #   Term inputted in the series
+                try: 
+                    progression.append(round(a*(d**f),Increment_decimal))
+                    Increment_decimal=Increment_decimal*2                               #   Term inputted in the series
                 except:
                     sequence.delete(1.0, END)
                     sequence.insert(1.0, text=Math_Error)
