@@ -366,21 +366,21 @@ def summing_series():
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
             decimal2=len(str(d).split(".")[1])                                                   #   Decimal places of increment
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
-                decimal=decimal1
+                Increment_decimal=decimal1
             else:
-                decimal=decimal2
+                Increment_decimal=decimal2
             progression=[]                                                                          #   Empty series
             progression.append(a+f*d)                                                               #   First term
             while (f+1) != n:                                                                       #   Goes through the terms
                 f=f+1                                                                               #   Increments the terms
                 progression.append(",")                                                             #   Separates the terms
-                progression.append(round(a+f*d,decimal))                                                           #term inputted in the series
+                progression.append(round(a+f*d,Increment_decimal))                                                           #term inputted in the series
             try: sum=(n/2)*(2*a+(n-1)*d)                                                                 #   Sum of all terms
             except:
                 sequence.delete(1.0, END)
                 sequence.insert(1.0, text=Math_Error)
                 sequence.configure(text_color= "red", state="disabled", font=("REM",17))
-            sum=round(sum,decimal)                                                                  #   Round the sum of terms
+            sum=round(sum,Increment_decimal)                                                                  #   Round the sum of terms
             sequence.insert(1.0,progression)                                                        #   Inserting the series
             sequence.configure(state="disabled")
             sum_of_terms=customtkinter.CTkLabel(root,text=sum,bg_color=bg_colour, fg_color=bg_colour).place(x=x6,y=y8)#     Placing the sum of series
