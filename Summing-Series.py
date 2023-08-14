@@ -17,7 +17,7 @@ def summing_series():
         entry3.delete(0,END)
         entry4.delete(0,END) 
         radio1.deselect()
-        radio2.deselect()                                                                      #   Making the program into a recallable function for increased stability and performance
+        radio2.deselect()                                                                  #   Making the program into a recallable function for increased stability and performance
         
 
     def switch():                                                                           #   Switches themes
@@ -260,7 +260,6 @@ def summing_series():
             for key, value in languages.items():                                            #   Get the From Language key
                 if (value == original_combo.get()):
                     from_language_key=key
-
             for key,value in languages.items():                                             #   Get the To Language key
                 if (value ==translated_combo.get()):
                     to_language_key=key
@@ -365,7 +364,7 @@ def summing_series():
             d=float(entry2.get())                                                                   #   "d"=increment
             n=int(entry3.get())                                                                    #   "n"=number of terms               
             decimal1=len(str(a).split(".")[1])                                                      #   Decimal places of first term
-            decimal2=len(str(d).split(".")[1])                                                      #   Decimal places of increment
+            decimal2=len(str(d).split(".")[1])                                                   #   Decimal places of increment
             if decimal1 >= decimal2:                                                                #   Choosing the larger decimal place
                 decimal=decimal1
             else:
