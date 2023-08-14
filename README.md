@@ -4,4 +4,4 @@ to run the program these need to be installed or enabled (copy and paste "exampl
 3. textblob: "pip install textblob"
 4. Google translate:  "pip install googletrans"
 5. Custom Tkinter: "pip install customtkinter"
-6. Currently the GUI does not support resolution scaling
+
